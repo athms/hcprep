@@ -2,7 +2,7 @@
 
 This is a small Python toolbox to download the Human Connectome Project (HCP) task-fMRI BOLD and event data via the Amazon S3 storage system.
 
-Note that the toolbox with store the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
+The toolbox stores the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
 
 **This project is still under development.**
 
@@ -14,7 +14,7 @@ The tfMRI-HCP_downloader is written for Python 3.7 and requires a working Python
 
 Before using the downloader, you will also need to request access to the HCP tfMRI data. A detailed instruction, can be found [here](https://wiki.humanconnectome.org/display/PublicData/How+To+Connect+to+Connectome+Data+via+AWS).
 
-Make sure to store the ACCESS_KEY and SECRET_KEY. You need these to access the HCP data via the AWS S3 storage system. 
+Make sure to safely store the ACCESS_KEY and SECRET_KEY. You need these to access the HCP data via the AWS S3 storage system. 
 
 ## Basic Usage
 
