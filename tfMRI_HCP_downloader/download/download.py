@@ -1,9 +1,10 @@
 #!/usr/bin/python
-import sys, os
+import sys
+import os
 import numpy as np
 import boto3
 
-from ._utils import make_sure_path_exists, return_hcp_EV_file_ids 
+from ._utils import make_sure_path_exists, return_hcp_EV_file_ids
 
 
 def connect_to_hcp_bucket(ACCESS_KEY, SECRET_KEY):
@@ -17,7 +18,8 @@ def connect_to_hcp_bucket(ACCESS_KEY, SECRET_KEY):
 
 
 def retrieve_hcp_tfMRI_subject_ids(ACCESS_KEY, SECRET_KEY, task, runs=['LR', 'RL'], n=1000):
-    bucket = connect_to_hcp_bucket(ACCESS_KEY=ACCESS_KEY, SECRET_KEY=SECRET_KEY)
+    bucket = connect_to_hcp_bucket(
+        ACCESS_KEY=ACCESS_KEY, SECRET_KEY=SECRET_KEY)
     subject_ids = []
     sample_key = ('/MNINonLinear/' +
                   'Results/' +
