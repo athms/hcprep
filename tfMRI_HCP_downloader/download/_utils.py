@@ -2,7 +2,7 @@
 import os
 
 
-def make_sure_path_excists(directory):
+def make_sure_path_exists(directory):
     if not os.path.exists(directory):
         os.makedirs(directory, exist_ok=True)
 

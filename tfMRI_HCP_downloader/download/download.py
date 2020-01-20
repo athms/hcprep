@@ -3,7 +3,7 @@ import sys, os
 import numpy as np
 import boto3
 
-from _utils import make_sure_path_excists, return_hcp_EV_file_ids 
+from ._utils import make_sure_path_exists, return_hcp_EV_file_ids 
 
 
 def connect_to_hcp_bucket(ACCESS_KEY, SECRET_KEY):
