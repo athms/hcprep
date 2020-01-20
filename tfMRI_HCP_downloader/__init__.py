@@ -2,3 +2,4 @@
 
 from . import download
 from . import paths
+from . import data
