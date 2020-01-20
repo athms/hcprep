@@ -1,8 +1,8 @@
 # tfMRI_HCP_downloader
 
-This is a small Python toolbox to download the Human Connectome Project (HCP) task-fMRI BOLD and event data via the Amazon S3 storage system.
+This is a small Python toolbox to download the [Human Connectome Project](http://www.humanconnectomeproject.org) (HCP) [task-fMRI](https://www.humanconnectome.org/study/hcp-young-adult/project-protocol/task-fmri) BOLD and event data via the Amazon S3 storage system.
 
-Note that the toolbox with store the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
+The toolbox stores the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
 
 **This project is still under development.**
 
@@ -14,7 +14,20 @@ The tfMRI-HCP_downloader is written for Python 3.7 and requires a working Python
 
 Before using the downloader, you will also need to request access to the HCP tfMRI data. A detailed instruction, can be found [here](https://wiki.humanconnectome.org/display/PublicData/How+To+Connect+to+Connectome+Data+via+AWS).
 
-Make sure to store the ACCESS_KEY and SECRET_KEY. You need these to access the HCP data via the AWS S3 storage system. 
+Make sure to safely store the ACCESS_KEY and SECRET_KEY. You need these to access the HCP data via the AWS S3 storage system. 
+
+## AWS configuration
+
+Make sure to also setup your local AWS client (as described [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)). 
+
+Add the following profile to '~/.aws/configure'
+
+```bash
+[profile hcp]
+region=eu-central-1
+```
+
+Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
 ## Basic Usage
 
