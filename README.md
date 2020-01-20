@@ -57,11 +57,11 @@ subject = '381038'
 path = 'data'
 
 # to get the path of the event files
-tfMRI_HCP_downloader.path.path_bids_EV(subject, task, run, path)
+tfMRI_HCP_downloader.paths.path_bids_EV(subject, task, run, path)
 
 # to get the path of the BOLD data in MNI space
-tfMRI_HCP_downloader.path.path_bids_func_mni(subject, task, run, path)
+tfMRI_HCP_downloader.paths.path_bids_func_mni(subject, task, run, path)
 
 # to get the path of the BOLD MASK in MNI space
-tfMRI_HCP_downloader.path.path_bids_func_mask_mni(subject, task, run, path)
+tfMRI_HCP_downloader.paths.path_bids_func_mask_mni(subject, task, run, path)
 ```
