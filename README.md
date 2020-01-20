@@ -4,7 +4,7 @@ This is a small Python toolbox to download the Human Connectome Project (HCP) ta
 
 Note that the toolbox with store the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
 
-*This project is still under development.*
+**This project is still under development.**
 
 ## Installation
 
