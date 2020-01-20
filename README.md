@@ -16,6 +16,10 @@ Before using the downloader, you will also need to request access to the HCP tfM
 
 Make sure to safely store the ACCESS_KEY and SECRET_KEY. You need these to access the HCP data via the AWS S3 storage system. 
 
+## AWS configuration
+
+Make sure to also setup your local AWS client (as described [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)).
+
 ## Basic Usage
 
 The toolbox contains files with the subject-IDs of 1000 participants for each of the seven tfMRI tasks of the HCP data. These can be founde in the subject_ids directory.
