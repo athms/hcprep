@@ -8,7 +8,7 @@ The toolbox stores the data locally in the [Brain Imaging Data Structure](https:
 
 ## Installation
 
-The tfMRI-HCP_downloader is written for Python 3.7 and requires a working Python environment running on your computer. We recommend to install the [Anaconda Distribution](https://www.anaconda.com/distribution/) (available for all major platforms). You will also need to install [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
+The tfMRI-HCP_downloader is written for Python 3.6 and requires a working Python environment running on your computer. We recommend to install the [Anaconda Distribution](https://www.anaconda.com/distribution/) (available for all major platforms). You will also need to install [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
 
 ## Getting Data Access
 
