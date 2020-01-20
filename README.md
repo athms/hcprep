@@ -27,6 +27,8 @@ Add the following profile to '~/.aws/configure'
 region=eu-central-1
 ```
 
+Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+
 ## Basic Usage
 
 The toolbox contains files with the subject-IDs of 1000 participants for each of the seven tfMRI tasks of the HCP data. These can be founde in the subject_ids directory.
