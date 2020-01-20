@@ -4,6 +4,8 @@ This is a small Python toolbox to download the Human Connectome Project (HCP) ta
 
 Note that the toolbox with store the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
 
+**This project is still under development.**
+
 ## Installation
 
 The tfMRI-HCP_downloader is written for Python 3.7 and requires a working Python environment running on your computer. We recommend to install the [Anaconda Distribution](https://www.anaconda.com/distribution/) (available for all major platforms). You will also need to install [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
