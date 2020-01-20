@@ -2,7 +2,7 @@
 
 This is a small Python toolbox to download the Human Connectome Project (HCP) task-fMRI BOLD and event data via the Amazon S3 storage system.
 
-Note that the toolbox with store the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io)(BIDS) format.
+Note that the toolbox with store the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
 
 ## Installation
 
