@@ -1,4 +1,4 @@
-# tfMRI-HCP_downloader
+# tfMRI_HCP_downloader
 
 This is a small Python toolbox to download the Human Connectome Project (HCP) task-fMRI data via the Amazon S3 storage system.
 
