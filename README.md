@@ -18,7 +18,14 @@ Make sure to safely store the ACCESS_KEY and SECRET_KEY. You need these to acces
 
 ## AWS configuration
 
-Make sure to also setup your local AWS client (as described [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)).
+Make sure to also setup your local AWS client (as described [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)). 
+
+Add the following profile to '~/.aws/configure'
+
+```bash
+[profile hcp]
+region=eu-central-1
+```
 
 ## Basic Usage
 
