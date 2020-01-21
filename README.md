@@ -30,7 +30,7 @@ region=eu-central-1
 Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
 ## 4. Basic Usage
-HCPrep already contains the subject-IDs of 1000 participants for each of the seven task-fMRI tasks of the HCP task-fMRI data (see below). These can be found in the `subject_ids` directory. If more IDs are required, these can retrieved with the `retrieve_hcp_subject_ids` function of the `download` module. 
+HCPrep already contains the subject-IDs of 1000 participants for each of the seven task-fMRI tasks of the HCP task-fMRI data (see below). These can be found in the `subject_ids` directory. If more IDs are required, these can retrieved with the `retrieve_subject_ids` function of the `download` module. 
 
 Overall, the task-fMRI data span the following seven tasks:
 
