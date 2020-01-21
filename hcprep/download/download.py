@@ -107,7 +107,7 @@ def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output
                   'Results/' +
                   'tfMRI_{}_{}/'.format(task, run) +
                   'EVs/')
-    for EV_file in return_hcp_EV_file_ids(task):
+    for EV_file in _return_hcp_EV_file_ids(task):
         bucket_id = identifier+EV_file
         output_file = path_func+'sub-{}_task-{}_run-{}_EV-{}'.format(
             subject, task, run, EV_file)
