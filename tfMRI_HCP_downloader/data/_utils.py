@@ -2,17 +2,95 @@
 import os
 import pandas as pd
 import numpy as np
-
-import nilearn as nl
+from nilearn.image import load_img
 
 from .. import paths 
 
+def _generate_ev_df(path, ev_filenames, task, subject, run):
+    df_list = []
+    for f in ev_filenames:
+
+        if task == 'GAMBLING':
+            if 'win.txt' in f:
+                continue
+            elif 'loss.txt' in f:
+                continue
+            elif 'neut.txt' in f:
+                continue
+            else:
+                if '_event' in f:
+                    event_type = f.split('_')[-2].split('-')[1]
+                else:
+                    event_type = f.split('.')[-2].split('-')[1]
+                ev_mat = pd.read_table(path+f, sep='\t', header=None).values
+                df_tmp = pd.DataFrame({'subject': subject,
+                                       'task': task,
+                                       'run': run,
+                                       'event_type': event_type,
+                                       'onset': ev_mat[:, 0],
+                                       'duration': ev_mat[:, 1],
+                                       'end': ev_mat[:, 0] + ev_mat[:, 1]})
+
+        elif task in ['EMOTION',
+                      'LANGUAGE',
+                      'MOTOR',
+                      'RELATIONAL']:
+            event_type = f.split('.')[0].split('_')[-1].split('-')[1]
+            if (task == 'MOTOR') & (event_type == 'cue'):
+                continue
+            ev_mat = pd.read_table(path+f, sep='\t', header=None).values
+            df_tmp = pd.DataFrame({'subject': subject,
+                                   'task': task,
+                                   'run': run,
+                                   'event_type': event_type,
+                                   'onset': ev_mat[:, 0],
+                                   'duration': ev_mat[:, 1],
+                                   'end': ev_mat[:, 0] + ev_mat[:, 1]})
+
+        elif task == 'SOCIAL':
+            if '_resp' in f:
+                event_type = f.split('.')[0].split('_')[-2].split('-')[1]
+                try:
+                    ev_mat = pd.read_table(
+                        path+f, sep='\t', header=None).values
+                except pd.errors.EmptyDataError:
+                    continue
+                df_tmp = pd.DataFrame({'subject': subject,
+                                       'task': task,
+                                       'run': run,
+                                       'event_type': event_type,
+                                       'onset': ev_mat[:, 0],
+                                       'duration': ev_mat[:, 1],
+                                       'end': ev_mat[:, 0] + ev_mat[:, 1]})
+            else:
+                continue
+
+        elif task == 'WM':
+            event_type = f.split('.')[0].split('-')[-1].split('_')[1]
+            if event_type in ['body', 'faces', 'places', 'tools']:
+                ev_mat = pd.read_table(path+f, sep='\t', header=None).values
+                df_tmp = pd.DataFrame({'subject': subject,
+                                       'task': task,
+                                       'run': run,
+                                       'event_type': event_type,
+                                       'onset': ev_mat[:, 0],
+                                       'duration': ev_mat[:, 1],
+                                       'end': ev_mat[:, 0] + ev_mat[:, 1]})
+            else:
+                continue
+
+        else:
+            raise NameError('Invalid task type.')
+            break
+
+        df_list.append(df_tmp)
+    df = pd.concat(df_list)
+    return df
 
 def _init_datadict(subject,
 		            task,
 		            runs,
 		            path,
-		            n_classes,
 		            TR):
     f = {}
     f['anat'] = None
@@ -24,7 +102,7 @@ def _init_datadict(subject,
         f_run['func'] = None
         f_run['func_mni'] = paths.path_bids_func_mni(subject, task, run, path)
         f_run['func_mask_mni'] = paths.path_bids_func_mask_mni(subject, task, run, path)
-        f_run['n_volumes'] = np.int(nl.load_img(f_run['func_mni']).shape[-1])
+        f_run['n_volumes'] = np.int(load_img(f_run['func_mni']).shape[-1])
         f_run['trial'] = np.zeros(f_run['n_volumes']) * np.nan
         f_run['n_trial_volumes'] = np.zeros_like(f_run['trial']) * np.nan
         f_run['rel_onset'] = np.zeros_like(f_run['trial']) * np.nan
@@ -85,10 +163,10 @@ def _add_markers_to_datadict(f, EV, n_volumes_discard_trial_onset=1, n_volumes_a
 
 
 def _load_subject_data(subject, task, runs, path, TR):
-    F_init = _init_datadict(subject, task, runs, path)
+    f = _init_datadict(subject, task, runs, path, TR)
     EV_list = []
     for run in runs:
-        EV_run = pd.read_csv(path_bids_EV(subject, task, run, path))
+        EV_run = pd.read_csv(paths.path_bids_EV(subject, task, run, path))
         EV_list.append(EV_run)
-    F = _add_markers_to_datadict(f_init, pd.concat(EV_list))
+    F = _add_markers_to_datadict(f, pd.concat(EV_list))
     return F
