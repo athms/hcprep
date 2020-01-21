@@ -7,7 +7,7 @@ import tfMRI_HCP_downloader
 
 if __name__ == '__main__':
 
-    # retrieve ACCESS KEY & SECRET KEY
+    # setup parser
     ap = argparse.ArgumentParser()
     # add arguments to parser
     ap.add_argument("--ACCESS_KEY", required=True,
