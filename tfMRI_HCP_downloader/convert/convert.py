@@ -18,7 +18,7 @@ def write_to_tfr(tfr_writers,
             writer = np.random.choice(tfr_writers)
             label = np.int(y[vi])
             label_indicator = [np.zeros(nc) for nc in n_classes_per_task]
-            label_indicator[task_tfr_id][label] = 1
+            label_indicator[task_id][label] = 1
             label_indicator = np.concatenate(label_indicator)
             volume = np.array(X[:, :, :, vi].T.reshape(
                 nx*ny*nz), dtype=np.float32)
