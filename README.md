@@ -78,7 +78,7 @@ hcprep.paths.path_bids_func_mask_mni(subject, task, run, path)
 ```
 
 ### 4.3 Cleaning the data
-Once the task-fMRI data is downloaded, you can clean it as follows:
+Once the task-fMRI data is downloaded you can clean it as follows:
 
 ```python
 # load the subject data
@@ -87,6 +87,7 @@ subject_data = hcprep.data.load_subject_data(task, subject, run, path, TR)
 # preprocess subject data
 cleaned_fMRI, volume_labels = hcprep.preprocess.preprocess_subject_data(subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
 ```
+The cleaning steps are: detrending, frequency filtering, smoothing, and standardization of the voxel time series signals (as described in [Thomas et al.](https://www.frontiersin.org/articles/10.3389/fnins.2019.01321/full))
 
 ### 4.4 Writing the data to TFRecord files
 Once the task-fMRI data is cleaned, you can easily write it to the TFRecord data format:
