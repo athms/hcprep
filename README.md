@@ -44,8 +44,7 @@ tasks = ['EMOTION',
          'SOCIAL',
          'WM']
  runs = ['LR', 'RL'] # two runs per task
- # number of decoding targets per task
- n_classes_per_task = [2, 3, 2, 5, 2, 2, 4]
+ n_classes_per_task = [2, 3, 2, 5, 2, 2, 4] # number of decoding targets per task
 ```
 
 ### 4.1 Downloading the data
