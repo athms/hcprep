@@ -5,6 +5,8 @@ import numpy as np
 import boto3
 
 from ._utils import make_sure_path_exists, return_hcp_EV_file_ids
+from ..data import summarize_subject_EVs
+from .. import paths
 
 
 def connect_to_hcp_bucket(ACCESS_KEY, SECRET_KEY):
@@ -80,8 +82,7 @@ def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output
                  'Results/' +
                  'tfMRI_{}_{}/'.format(task, run) +
                  'tfMRI_{}_{}.nii.gz'.format(task, run))
-    output_file = path_func+'sub-{}_task-{}_run-{}_bold.nii.gz'.format(
-        subject, task, run)
+    output_file = paths.path_bids_func_mni(subject, task, run, output_path)
     if not os.path.isfile(output_file):
         print('downloading file: {}  to  {}'.format(bucket_id, output_file))
         bucket.download_file(bucket_id, output_file)
@@ -93,8 +94,7 @@ def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output
                  'Results/' +
                  'tfMRI_{}_{}/'.format(task, run) +
                  'brainmask_fs.2.nii.gz')
-    output_file = path_func+'sub-{}_task-{}_run-{}_brainmask.nii.gz'.format(
-        subject, task, run)
+    output_file = paths.path_bids_func_mask_mni(subject, task, run, output_path)
     if not os.path.isfile(output_file):
         print('downloading file: {}  to  {}'.format(bucket_id, output_file))
         bucket.download_file(bucket_id, output_file)
@@ -114,3 +114,11 @@ def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output
             print('downloading file: {}  to  {}'.format(bucket_id, output_file))
             bucket.download_file(bucket_id, output_file)
             print('done.')
+
+    # create EV summary
+    output_file = paths.path_bids_EV(subject, task, run, output_path)
+    if not os.path.isfile(output_file):
+        print('creating EV summary: {}'.format(output_file))
+        EV_summary = summarize_subject_EVs(task, subject, [run], path_func)
+        EV_summary.to_csv(output_file, index=False)
+        print('done.')
