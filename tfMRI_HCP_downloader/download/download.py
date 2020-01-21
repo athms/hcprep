@@ -19,7 +19,7 @@ def connect_to_hcp_bucket(ACCESS_KEY, SECRET_KEY):
     return bucket
 
 
-def retrieve_hcp_tfMRI_subject_ids(ACCESS_KEY, SECRET_KEY, task, runs=['LR', 'RL'], n=1000):
+def retrieve_hcp_subject_ids(ACCESS_KEY, SECRET_KEY, task, runs=['LR', 'RL'], n=1000):
     bucket = connect_to_hcp_bucket(
         ACCESS_KEY=ACCESS_KEY, SECRET_KEY=SECRET_KEY)
     subject_ids = []
