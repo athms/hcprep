@@ -1,18 +1,18 @@
-# HCprep
+# HCPrep
 
-HCprep is a Python toolbox that allows to easily: 
+HCPrep is a Python toolbox that allows to easily: 
 1.  download the [Human Connectome Project](http://www.humanconnectomeproject.org) (HCP) [task-fMRI](https://www.humanconnectome.org/study/hcp-young-adult/project-protocol/task-fmri) data via the Amazon S3 storage system and 
 2. preprocess these specifically for deep learning (DL) analyses with [tensorflow](https://www.tensorflow.org/).
 
-HCprep stores the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
+HCPrep stores the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
 
-To make the tfMRI data usable for DL analyses with tensorflow, HCprep can appply simple data cleaning steps to the downloaded tfMRI data and stores these in the [TFRecords format](https://www.tensorflow.org/tutorials/load_data/tfrecord).  
+To make the tfMRI data usable for DL analyses with tensorflow, HCPrep can appply simple data cleaning steps to the downloaded tfMRI data and stores these in the [TFRecords format](https://www.tensorflow.org/tutorials/load_data/tfrecord).  
 
 **NOTE: This project is still under development.**
 
 ## 1. Installation
 
-HCprep is written for Python 3.6 and requires a working Python environment running on your computer. We recommend to install the [Anaconda Distribution](https://www.anaconda.com/distribution/) (available for all major platforms). You will also need to install [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html), [tensorflow (1.13)](https://www.tensorflow.org/install/pip), and [nilearn](https://nilearn.github.io/introduction.html#installing-nilearn). 
+HCPrep is written for Python 3.6 and requires a working Python environment running on your computer. We recommend to install the [Anaconda Distribution](https://www.anaconda.com/distribution/) (available for all major platforms). You will also need to install [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html), [tensorflow (1.13)](https://www.tensorflow.org/install/pip), and [nilearn](https://nilearn.github.io/introduction.html#installing-nilearn). 
 
 ## 2. Getting Data Access
 
@@ -35,7 +35,7 @@ Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS
 
 ## 4. Basic Usage
 
-HCprep already contains .npy-files with the subject-IDs of 1000 participants for each of the seven tfMRI tasks of the HCP tfMRI data. These can be found in the subject_ids directory.
+HCPrep already contains .npy-files with the subject-IDs of 1000 participants for each of the seven tfMRI tasks of the HCP tfMRI data. These can be found in the subject_ids directory.
 
 ### 4.1 Downloading the data
 The tfMRI data of a subject can be downloaded to a local machine as follows:
@@ -52,7 +52,7 @@ hcprep.download.download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task,
 ```
 
 ### 4.2 Interacting with the data
-The HCprep also contains a set of functions that allow to easily interact with the locally stored data in BIDS format. Specifically, each function returns the path of a filetype:
+The HCPrep also contains a set of functions that allow to easily interact with the locally stored data in BIDS format. Specifically, each function returns the path of a filetype:
 
 ```bash
 
