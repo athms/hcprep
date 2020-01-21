@@ -1,5 +1,10 @@
 #!/usr/bin/python
+import os
 
+
+def make_sure_path_exists(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory, exist_ok=True)
 
 def path_bids_EV(subject, task, run, path):
     return path+'sub-{}/func/sub-{}_task-{}_run-{}_EV-summary.csv'.format(
