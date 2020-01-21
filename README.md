@@ -105,9 +105,7 @@ tfr_writers = [tf.python_io.TFRecordWriter(
 # write preprocessed data to TFR
 hcprep.convert.write_to_tfr(tfr_writers,
                             cleaned_fMRI.get_data(), volume_labels,
-                            subject,
-                            task_id,
-                            run_id,
+                            subject, task_id, run_id,
                             n_classes_per_task,
                             randomize_volumes=True)
 ```
