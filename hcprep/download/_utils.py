@@ -2,12 +2,7 @@
 import os
 
 
-def make_sure_path_exists(directory):
-    if not os.path.exists(directory):
-        os.makedirs(directory, exist_ok=True)
-
-
-def return_hcp_EV_file_ids(task):
+def _return_hcp_EV_file_ids(task):
     if task == 'EMOTION':
         file_types = ['fear.txt',
                       'neut.txt']

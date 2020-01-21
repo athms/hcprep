@@ -4,7 +4,7 @@ import os
 import numpy as np
 import boto3
 
-from ._utils import make_sure_path_exists, return_hcp_EV_file_ids
+from ._utils import _return_hcp_EV_file_ids
 from ..data import summarize_subject_EVs
 from .. import paths
 
@@ -52,7 +52,7 @@ def check_subject_data_present(bucket, subject, task, runs):
         checks.append(check_key_exists(tfMRI_mask_key, bucket, prefix))
 
         # EV data
-        for EV_file in return_hcp_EV_file_ids(task):
+        for EV_file in _return_hcp_EV_file_ids(task):
             EV_key = (prefix+'EVs/'+EV_file)
             checks.append(check_key_exists(EV_key, bucket, prefix))
 
@@ -68,9 +68,9 @@ def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output
     path_sub = output_path+'sub-{}/'.format(subject)
     path_anat = path_sub+'anat/'
     path_func = path_sub+'func/'
-    make_sure_path_exists(path_sub)
-    make_sure_path_exists(path_anat)
-    make_sure_path_exists(path_func)
+    paths.make_sure_path_exists(path_sub)
+    paths.make_sure_path_exists(path_anat)
+    paths.make_sure_path_exists(path_func)
 
     # connect to S3 bucket
     bucket = connect_to_hcp_bucket(
