@@ -35,6 +35,7 @@ Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS
 
 DLprep_HCPfMRI already contains .npy-files with the subject-IDs of 1000 participants for each of the seven tfMRI tasks of the HCP tfMRI data. These can be found in the subject_ids directory.
 
+### Downloading Data
 The tfMRI data of a subject can be downloaded to a local machine as follows:
 
 ```bash
@@ -48,6 +49,7 @@ output_path = 'data'
 DLprep_HCPfMRI.download.download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output_path)
 ```
 
+### Interacting with Data
 The DLprep_HCPfMRI also contains a set of functions that allow to easily interact with the locally stored data in BIDS format. Specifically, each function returns the path of a filetype:
 
 ```bash
@@ -62,25 +64,33 @@ DLprep_HCPfMRI.paths.path_bids_func_mni(subject, task, run, path)
 DLprep_HCPfMRI.paths.path_bids_func_mask_mni(subject, task, run, path)
 ```
 
-Once the data is downloaded, you can preprocess and convert it to the TFRecords file format as follows:
+### Clean Data
+Once the data is downloaded, you can clean it as follows:
 
 ```bash
+# load the subject data
+subject_data = DLprep_HCPfMRI.data.load_subject_data(task, subject, run, path, TR)
+
+# preprocess subject data
+cleaned_fMRI, volume_labels = DLprep_HCPfMRI.preprocess.preprocess_subject_data(subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
+```
+
+### Write to TFRecord
+Once the data is downloaded and cleaned, you can easily write it to the TFRecord data format:
+
+```bash
+import tensorflow as tf
+
 # create a TFR-writer
 n_tfr_writers = 1
 tfr_writers = [tf.python_io.TFRecordWriter(
                tfr_path+'task-{}_subject-{}_run-{}_{}.tfrecords'.format(task, subject, run, wi))
                for wi in range(n_tfr_writers)]
-
-# load the subject data
-subject_data = DLprep_HCPfMRI.data.load_subject_data(task, subject, run, path, TR)
-
-# preprocess subject data
-volumes, volume_labels = DLprep_HCPfMRI.preprocess.preprocess_subject_data(
-subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
+               
 
 # write preprocessed data to TFR
 DLprep_HCPfMRI.convert.write_to_tfr(tfr_writers,
-                                    volumes.get_data(), volume_labels,
+                                    cleaned_fMRI.get_data(), volume_labels,
                                     subject_id, task_id, run_id, n_classes_per_task,
                                     randomize_volumes=True)
 ```
