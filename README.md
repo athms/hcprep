@@ -2,7 +2,7 @@
 
 HCprep is a Python toolbox that allows to easily: 
 1.  download the [Human Connectome Project](http://www.humanconnectomeproject.org) (HCP) [task-fMRI](https://www.humanconnectome.org/study/hcp-young-adult/project-protocol/task-fmri) data via the Amazon S3 storage system and 
-2. preprocess the downlaoded data specifically for deep learning (DL) analyses with [tensorflow](https://www.tensorflow.org/).
+2. preprocess these specifically for deep learning (DL) analyses with [tensorflow](https://www.tensorflow.org/).
 
 HCprep stores the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
 
