@@ -3,6 +3,8 @@ import os
 import pandas as pd
 import numpy as np
 
+from ._utils import _load_subject_data
+
 
 def _generate_ev_df(path, ev_filenames, task, subject, run):
     df_list = []
@@ -98,3 +100,10 @@ def summarize_subject_EVs(task, subject, runs, path):
     EV_summary = EV_summary.sort_values(by=['run', 'onset'])
     EV_summary['trial'] = np.arange(EV_summary.shape[0])
     return EV_summary.copy().reset_index(drop=True)
+
+
+def load_subject_data(task, subject, run, path, TR):
+
+    subject_data_dict = _load_subject_data(subject, task, runs, path, TR)
+
+    return subject_data_dict
