@@ -4,7 +4,8 @@ import pandas as pd
 import numpy as np
 from nilearn.image import load_img
 
-from .. import paths 
+from .. import paths
+
 
 def _generate_ev_df(path, ev_filenames, task, subject, run):
     df_list = []
@@ -87,11 +88,12 @@ def _generate_ev_df(path, ev_filenames, task, subject, run):
     df = pd.concat(df_list)
     return df
 
+
 def _init_datadict(subject,
-		            task,
-		            runs,
-		            path,
-		            TR):
+                   task,
+                   runs,
+                   path,
+                   TR):
     f = {}
     f['anat'] = None
     f['anat_mni'] = None
@@ -101,7 +103,8 @@ def _init_datadict(subject,
         f_run = {}
         f_run['func'] = None
         f_run['func_mni'] = paths.path_bids_func_mni(subject, task, run, path)
-        f_run['func_mask_mni'] = paths.path_bids_func_mask_mni(subject, task, run, path)
+        f_run['func_mask_mni'] = paths.path_bids_func_mask_mni(
+            subject, task, run, path)
         f_run['n_volumes'] = np.int(load_img(f_run['func_mni']).shape[-1])
         f_run['trial'] = np.zeros(f_run['n_volumes']) * np.nan
         f_run['n_trial_volumes'] = np.zeros_like(f_run['trial']) * np.nan

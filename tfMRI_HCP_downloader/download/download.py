@@ -94,7 +94,8 @@ def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output
                  'Results/' +
                  'tfMRI_{}_{}/'.format(task, run) +
                  'brainmask_fs.2.nii.gz')
-    output_file = paths.path_bids_func_mask_mni(subject, task, run, output_path)
+    output_file = paths.path_bids_func_mask_mni(
+        subject, task, run, output_path)
     if not os.path.isfile(output_file):
         print('downloading file: {}  to  {}'.format(bucket_id, output_file))
         bucket.download_file(bucket_id, output_file)

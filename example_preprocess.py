@@ -27,13 +27,15 @@ if __name__ == "__main__":
         n_tfr_writers = int(args['n_tfr'])
     else:
         n_tfr_writers = 1
-    print('Number of TFR-writers per [task, subject, run]: {}'.format(n_tfr_writers))
+    print(
+        'Number of TFR-writers per [task, subject, run]: {}'.format(n_tfr_writers))
 
     # extract subject IDs
-    subjects = [int(f.split('sub-')[1]) for f in os.listdir(path) if 'sub' in f]
+    subjects = [int(f.split('sub-')[1])
+                for f in os.listdir(path) if 'sub' in f]
 
     # HCP exp. descriptors
-    TR = 0.72 # TR in seconds
+    TR = 0.72  # TR in seconds
     tasks = ['EMOTION',
              'GAMBLING',
              'LANGUAGE',
@@ -42,12 +44,13 @@ if __name__ == "__main__":
              'SOCIAL',
              'WM']
     runs = ['LR', 'RL']
-    n_classes_per_task = [2, 3, 2, 5, 2, 2, 4] # number of decoding targets per task
+    # number of decoding targets per task
+    n_classes_per_task = [2, 3, 2, 5, 2, 2, 4]
 
     # tfr path
     tfr_path = path+'tfr/'
     tfMRI_HCP_downloader.paths.make_sure_path_exists(tfr_path)
-    
+
     # write data
     for subject_id, subject in enumerate(subjects):
         print('Processing subject: {}/{}'.format(subject_id+1, len(subjects)))
@@ -58,7 +61,8 @@ if __name__ == "__main__":
                     tfr_path+'task-{}_subject-{}_run-{}_{}.tfrecords'.format(task, subject, run, wi))
                     for wi in range(n_tfr_writers)]
                 # load subject data
-                subject_data = tfMRI_HCP_downloader.data.load_subject_data(task, subject, run, path, TR)
+                subject_data = tfMRI_HCP_downloader.data.load_subject_data(
+                    task, subject, run, path, TR)
                 # preprocess subject data
                 volumes, volume_labels = tfMRI_HCP_downloader.preprocess.preprocess_subject_data(
                     subject_data, [run], high_pass=1./128., smoothing_fwhm=3)

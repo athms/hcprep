@@ -7,7 +7,6 @@ from nilearn.image import load_img, index_img, concat_imgs
 from ..data._utils import _load_subject_data
 
 
-
 def _clean_func(func, mask, smoothing_fwhm=3, high_pass=1./128., tr=0.72):
     masked_func = apply_mask(func,
                              mask,
@@ -33,7 +32,8 @@ def preprocess_subject_data(subject_data, runs, high_pass, smoothing_fwhm):
         mask_run = load_img(subject_data[run]['func_mask_mni'])
 
         trial_type = subject_data[run]['trial_type']
-        cleaned_func = _clean_func(func_run, mask_run, smoothing_fwhm=smoothing_fwhm, high_pass=high_pass, tr=subject_data['tr'])
+        cleaned_func = _clean_func(
+            func_run, mask_run, smoothing_fwhm=smoothing_fwhm, high_pass=high_pass, tr=subject_data['tr'])
 
         # subset tfMRI data to valid volumes
         valid_volume_idx = np.isfinite(trial_type)
