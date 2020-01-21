@@ -33,6 +33,21 @@ Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS
 ## 4. Basic Usage
 HCPrep already contains the subject-IDs of 1000 participants for each of the seven tfMRI tasks of the HCP tfMRI data. These can be found in the `subject_ids` directory. If more IDs are required, these can retrieved with the `retrieve_hcp_subject_ids` function of the `download` module. 
 
+Overall, these data span the following seven tasks:
+
+```python
+tasks = ['EMOTION',
+         'GAMBLING',
+         'LANGUAGE',
+         'MOTOR',
+         'RELATIONAL',
+         'SOCIAL',
+         'WM']
+ runs = ['LR', 'RL'] # two runs per task
+ # number of decoding targets per task
+ n_classes_per_task = [2, 3, 2, 5, 2, 2, 4]
+```
+
 ### 4.1 Downloading the data
 The tfMRI data of a subject can be downloaded to a local machine as follows:
 
@@ -40,9 +55,11 @@ The tfMRI data of a subject can be downloaded to a local machine as follows:
 import hcprep
 
 task = 'WM'
+task_id = 6 # 'WM' is the last task in tasks
 run = 'RL'
-subject = '381038'
-output_path = 'data'
+run_id = 1 # 'RL' is the second run in runs
+subject = '100307' # an example subject
+output_path = 'data/' # path to store the downloaded data
 
 hcprep.download.download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output_path)
 ```
@@ -88,6 +105,9 @@ tfr_writers = [tf.python_io.TFRecordWriter(
 # write preprocessed data to TFR
 hcprep.convert.write_to_tfr(tfr_writers,
                             cleaned_fMRI.get_data(), volume_labels,
-                            subject_id, task_id, run_id, n_classes_per_task,
+                            subject,
+                            task_id,
+                            run_id,
+                            n_classes_per_task,
                             randomize_volumes=True)
 ```
