@@ -54,9 +54,9 @@ The task-fMRI data of a subject can be downloaded to a local machine as follows:
 import hcprep
 
 task = 'WM'
-task_id = 6 # 'WM' is the last task in tasks
+task_id = 6 # 'WM' is the last of seven tasks
 run = 'RL'
-run_id = 1 # 'RL' is the second run in runs
+run_id = 1 # 'RL' is the second run
 subject = '100307' # an example subject
 output_path = 'data/' # path to store the downloaded data
 
