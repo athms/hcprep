@@ -3,7 +3,7 @@ import os
 import argparse
 import numpy as np
 import tensorflow as tf
-import tfMRI_HCP_downloader
+import hcprep
 
 
 if __name__ == "__main__":
@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     # tfr path
     tfr_path = path+'tfr/'
-    tfMRI_HCP_downloader.paths.make_sure_path_exists(tfr_path)
+    hcprep.paths.make_sure_path_exists(tfr_path)
 
     # write data
     for subject_id, subject in enumerate(subjects):
@@ -61,13 +61,13 @@ if __name__ == "__main__":
                     tfr_path+'task-{}_subject-{}_run-{}_{}.tfrecords'.format(task, subject, run, wi))
                     for wi in range(n_tfr_writers)]
                 # load subject data
-                subject_data = tfMRI_HCP_downloader.data.load_subject_data(
+                subject_data = hcprep.data.load_subject_data(
                     task, subject, run, path, TR)
                 # preprocess subject data
-                volumes, volume_labels = tfMRI_HCP_downloader.preprocess.preprocess_subject_data(
+                volumes, volume_labels = hcprep.preprocess.preprocess_subject_data(
                     subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
                 # write preprocessed data to TFR
-                tfMRI_HCP_downloader.convert.write_to_tfr(tfr_writers,
+                hcprep.convert.write_to_tfr(tfr_writers,
                                                           volumes.get_data(), volume_labels,
                                                           subject_id, task_id, run_id, n_classes_per_task,
                                                           randomize_volumes=True)

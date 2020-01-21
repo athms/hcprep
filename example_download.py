@@ -2,7 +2,7 @@
 import os
 import argparse
 import numpy as np
-import tfMRI_HCP_downloader
+import hcprep
 
 
 if __name__ == '__main__':
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     else:
         output_path = 'data/'
         print('"path" not defined. Defaulting to: {}'.format(output_path))
-    tfMRI_HCP_downloader.paths.make_sure_path_exists(output_path)
+    hcprep.paths.make_sure_path_exists(output_path)
     if args['n_subjects'] is not None:
         n_subjects = int(args['n_subjects'])
     else:
@@ -51,5 +51,5 @@ if __name__ == '__main__':
             'subject_ids/tfMRI_{}_subject_ids.npy'.format(task))[:n_subjects]
         for subject in task_subjects:
             for run in runs:
-                tfMRI_HCP_downloader.download.download_hcp_subject_data(
+                hcprep.download.download_hcp_subject_data(
                     ACCESS_KEY, SECRET_KEY, subject, task, run, output_path)
