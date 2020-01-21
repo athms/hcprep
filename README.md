@@ -7,7 +7,7 @@ HCPrep stores the data locally in the [Brain Imaging Data Structure](https://bid
 
 To make the tfMRI data usable for DL analyses with tensorflow, HCPrep can appply simple data cleaning steps to the downloaded tfMRI data and stores these in the [TFRecords format](https://www.tensorflow.org/tutorials/load_data/tfrecord).  
 
-<span style="color:red">**NOTE: This project is still under development.**</span>
+## NOTE: This project is still under development.
 
 
 ## 1. Installation
