@@ -5,11 +5,6 @@ import numpy as np
 import tfMRI_HCP_downloader
 
 
-def make_sure_path_exists(directory):
-    if not os.path.exists(directory):
-        os.makedirs(directory, exist_ok=True)
-
-
 if __name__ == '__main__':
 
     # retrieve ACCESS KEY & SECRET KEY
@@ -33,7 +28,7 @@ if __name__ == '__main__':
     else:
         output_path = 'data/'
         print('"path" not defined. Defaulting to: {}'.format(output_path))
-    make_sure_path_exists(output_path)
+    tfMRI_HCP_downloader.paths.make_sure_path_exists(output_path)
     if args['n_subjects'] is not None:
         n_subjects = int(args['n_subjects'])
     else:
