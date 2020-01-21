@@ -36,7 +36,7 @@ HCPrep already contains the subject-IDs of 1000 participants for each of the sev
 ### 4.1 Downloading the data
 The tfMRI data of a subject can be downloaded to a local machine as follows:
 
-```bash
+```python
 import hcprep
 
 task = 'WM'
@@ -50,8 +50,7 @@ hcprep.download.download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task,
 ### 4.2 Interacting with the data
 The HCPrep also contains a set of functions that allow to easily interact with the locally stored data in BIDS format. Specifically, each function returns the path of a filetype:
 
-```bash
-
+```python
 # to get the path of the event files
 hcprep.paths.path_bids_EV(subject, task, run, path)
 
@@ -65,7 +64,7 @@ hcprep.paths.path_bids_func_mask_mni(subject, task, run, path)
 ### 4.3 Cleaning the data
 Once the data is downloaded, you can clean it as follows:
 
-```bash
+```python
 # load the subject data
 subject_data = hcprep.data.load_subject_data(task, subject, run, path, TR)
 
@@ -76,7 +75,7 @@ cleaned_fMRI, volume_labels = hcprep.preprocess.preprocess_subject_data(subject_
 ### 4.4 Writing the data to TFRecord files
 Once the data is downloaded and cleaned, you can easily write it to the TFRecord data format:
 
-```bash
+```python
 import tensorflow as tf
 
 # create a TFR-writer
