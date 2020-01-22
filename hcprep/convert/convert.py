@@ -7,6 +7,30 @@ def write_to_tfr(tfr_writers,
                  fMRI_data, volume_labels,
                  subject_id, task_id, run_id, n_classes_per_task,
                  randomize_volumes=True):
+    """Writes fMRI volumes and labels to TFRecord files.
+
+    Args:
+        tfr_writers: A sequence of TFRecord writers to store the data
+        fMRI_data: Ndarray of the fMRI volumes
+        volume_labels: A sequence, containing one numeric label per 
+            volume in fMRI_data
+        subject_id: Integer ID of the subject that is stored in the
+            TFR-files
+        task_id: Integer ID of the HCP task that is stored in the 
+            TFR-files
+        run_id: Integer ID of the run that is stored  in the
+            TFR-files
+        n_classes_per_task: A sequence of integers indicating 
+            the number of classes (ie., labels) per task in the
+            HCP data. The overall number of classes determines
+            the dimensionality of the one-hot label across tasks.
+        randomize_volumes: Bool indicating whether the sequence of 
+            volume (incl. their corresponding label) should be
+            randomized before storing them in the TFR-files.
+
+    Returns:
+        None
+    """
     X = np.array(fMRI_data)
     y = np.array(volume_labels)
     nx, ny, nz, nv = X.shape
@@ -38,6 +62,27 @@ def write_to_tfr(tfr_writers,
 
 
 def parse_tfr(example_proto, nx, ny, nz, n_classes):
+    """Parse TFR-data
+
+    Args:
+        example_proto: Single example from TFR-file
+        nx, ny, nz: Integers indicating the x-/y-/z-dimensions
+            of the fMRI data stored in the TFR-files
+        n_classes: Total number of classes across tasks
+
+    Returns:
+        Parsed data stored in TFR-files. Specifically, the:
+        
+        volume: Ndarray of fMRI volume activations
+        task_id: Integer ID of the HCP task 
+        subject_id: Integer ID of the subject
+        run_id: Integer ID of the run
+        volume_idx: Integer sequence index of the fMRI volume
+            in the original sequence of the data passed to
+            hcprep.convert.write_to_tfr
+        label: Integer label of the volume
+        label_indicator: One-hot encoding of the label
+    """
     features = {'volume': tf.FixedLenFeature([nx*ny*nz], tf.float32),
                 'task_id': tf.FixedLenFeature([1], tf.int64),
                 'subject_id': tf.FixedLenFeature([1], tf.int64),
