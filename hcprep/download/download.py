@@ -10,6 +10,15 @@ from .. import paths
 
 
 def connect_to_hcp_bucket(ACCESS_KEY, SECRET_KEY):
+    """Connect to HCP AWS S3 bucket with boto3
+
+    Args:
+        ACCESS_KEY, SECRET_KEY: access and secret
+            keys necessary to access HCP AWS S3 storage.
+
+    Returns:
+        Boto3 bucket
+    """
     boto3.setup_default_session(profile_name='hcp',
                                 aws_access_key_id=ACCESS_KEY,
                                 aws_secret_access_key=SECRET_KEY,
@@ -20,6 +29,19 @@ def connect_to_hcp_bucket(ACCESS_KEY, SECRET_KEY):
 
 
 def retrieve_subject_ids(ACCESS_KEY, SECRET_KEY, task, runs=['LR', 'RL'], n=1000):
+    """Retrieve IDs of HCP subjects in a task from 
+    the AWS S3 servers.
+
+    Args:
+        ACCESS_KEY, SECRET_KEY: access and secret
+            keys necessary to access HCP AWS S3 storage.
+        task: String ID of HCP task.
+        runs: A sequence of the HCP run IDs ["LR",, "RL"]
+        n: Number of subject IDs to retrieve.
+
+    Returns:
+        Subject_ids: Sequence of retrieved subject IDs.
+    """
     bucket = connect_to_hcp_bucket(
         ACCESS_KEY=ACCESS_KEY, SECRET_KEY=SECRET_KEY)
     subject_ids = []
@@ -39,6 +61,19 @@ def retrieve_subject_ids(ACCESS_KEY, SECRET_KEY, task, runs=['LR', 'RL'], n=1000
 
 
 def check_subject_data_present(bucket, subject, task, runs):
+    """Check if a subject's task-fMRI data is present
+    in the AWS S3 bucket.
+
+    Args:
+        bucket: Boto3 bucket created with
+            hcprep.download.connect_to_hcp_bucket
+        subject: Integer ID of HCP subject
+        task: String ID of HCP task.
+        runs: A sequence of the HCP run IDs ["LR", "RL"]
+
+    Returns:
+        Bool indicating whether task-fMRI data present.
+    """
     checks = []
     for run in runs:
         prefix = 'HCP/{}/MNINonLinear/Results/tfMRI_{}_{}/'.format(
@@ -63,6 +98,18 @@ def check_subject_data_present(bucket, subject, task, runs):
 
 
 def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output_path):
+    """Download the task-fMRI data of a HCP subject
+    in a task run and write it to a local directory 
+    in the Brain Imaging Data Structure (BIDS) format.
+
+    Args:
+        ACCESS_KEY, SECRET_KEY: access and secret
+            keys necessary to access HCP AWS S3 storage.
+        subject: Integer ID of HCP subject
+        task: String ID of HCP task.
+        runs: String ID of HCP run (one of ["LR", "RL"])
+        output_path: Local path to which data is written.
+    """
 
     # make sure all requiered dirs exist
     path_sub = output_path+'sub-{}/'.format(subject)
