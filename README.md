@@ -10,7 +10,7 @@ To make the tfMRI data usable for DL analyses with tensorflow, HCPrep can also a
 ***NOTE: This project is still under development.***
 
 
-## 1. Software dependencies
+## 1. Software Dependencies
 HCPrep is written for Python 3.6 and requires a working Python environment running on your computer ([Anaconda Distribution](https://www.anaconda.com/distribution/) is recommended). You will also need to install [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html), [tensorflow (1.13)](https://www.tensorflow.org/install/pip), and [nilearn](https://nilearn.github.io/introduction.html#installing-nilearn). 
 
 ## 2. Getting Data Access
@@ -18,7 +18,7 @@ To download the data, you will also need AWS access to the HCP task-fMRI data di
 
 Make sure to safely store the `ACCESS_KEY` and `SECRET_KEY`. They are required to access the data via the AWS S3 storage system. 
 
-## 3. AWS configuration
+## 3. AWS Configuration
 Setup your local AWS client (as described [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)). 
 
 Add the following profile to '~/.aws/configure'
