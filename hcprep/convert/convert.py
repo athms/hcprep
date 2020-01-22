@@ -72,7 +72,7 @@ def parse_tfr(example_proto, nx, ny, nz, n_classes):
 
     Returns:
         Parsed data stored in TFR-files. Specifically, the:
-        
+
         volume: Ndarray of fMRI volume activations
         task_id: Integer ID of the HCP task 
         subject_id: Integer ID of the subject
