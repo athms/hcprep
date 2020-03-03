@@ -38,7 +38,15 @@ def path_bids_func_mni(subject, task, run, path):
         subject, subject, task, run)
 
 
-def path_bids_anat_mni(subject, task, run, path):
+def path_bids_anat_mni(subject, task, path):
+	"""Return the path to the local anatomical scan
+	of a subject.
+
+	Args:
+		subject: Integer ID of HCP subject
+        task: String ID of HCP task.
+        path: Path to local BIDS directory.
+	"""
     return path+'sub-{}/anat/sub-{}_task-{}_anat.nii.gz'.format(
         subject, subject, task)
 

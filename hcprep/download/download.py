@@ -157,7 +157,7 @@ def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output
     bucket_id = ('HCP/{}/'.format(subject) +
                  'MNINonLinear/' +
                  'T1w.nii.gz'.format(task, run))
-    output_file = paths.path_bids_anat_mni(subject, task, run, output_path)
+    output_file = paths.path_bids_anat_mni(subject, task, output_path)
     if not os.path.isfile(output_file):
         print('downloading file: {}  to  {}'.format(bucket_id, output_file))
         bucket.download_file(bucket_id, output_file)
