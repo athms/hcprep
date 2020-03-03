@@ -1,6 +1,6 @@
 # HCPrep
 HCPrep is a Python toolbox that allows to easily: 
-1.  download the [Human Connectome Project](http://www.humanconnectomeproject.org) (HCP) *preprocessed* [task-fMRI data](https://www.humanconnectome.org/study/hcp-young-adult/project-protocol/task-fmri) in MNI-space via the [Amazon S3 storage system](https://www.humanconnectome.org/study/hcp-young-adult/article/hcp-s1200-release-now-available-amazon-web-services) and 
+1.  download the [Human Connectome Project](http://www.humanconnectomeproject.org) (HCP) **preprocessed [task-fMRI data](https://www.humanconnectome.org/study/hcp-young-adult/project-protocol/task-fmri) in MNI-space** via the [Amazon S3 storage system](https://www.humanconnectome.org/study/hcp-young-adult/article/hcp-s1200-release-now-available-amazon-web-services) and 
 2. preprocess these specifically for deep learning (DL) analyses with [tensorflow](https://www.tensorflow.org/).
 
 HCPrep stores the data locally in the [Brain Imaging Data Structure](https://bids.neuroimaging.io) (BIDS) format.
