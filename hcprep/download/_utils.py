@@ -59,3 +59,12 @@ def _return_hcp_EV_file_ids(task):
         raise NameError('Invalid task type.')
 
     return file_types
+
+
+def _check_key_exists(key, bucket, prefix):
+    keys = [o.key for o in bucket.objects.filter(Prefix=prefix)]
+    if key in keys:
+        check = True
+    else:
+        check = False
+    return check

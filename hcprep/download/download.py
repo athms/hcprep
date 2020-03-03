@@ -4,7 +4,7 @@ import os
 import numpy as np
 import boto3
 
-from ._utils import _return_hcp_EV_file_ids
+from ._utils import _return_hcp_EV_file_ids, _check_key_exists
 from ..data import summarize_subject_EVs
 from .. import paths
 
@@ -45,16 +45,21 @@ def check_subject_data_present(bucket, subject, task, runs):
             subject, task, run)
         # tfMRI data
         tfMRI_key = (prefix+'tfMRI_{}_{}.nii.gz'.format(task, run))
-        checks.append(check_key_exists(tfMRI_key, bucket, prefix))
+        checks.append(_check_key_exists(tfMRI_key, bucket, prefix))
 
         # tfMRI mask
         tfMRI_mask_key = (prefix + 'brainmask_fs.2.nii.gz')
-        checks.append(check_key_exists(tfMRI_mask_key, bucket, prefix))
+        checks.append(_check_key_exists(tfMRI_mask_key, bucket, prefix))
+
+        # anatomical scan
+        anat_prefix = 'HCP/{}/MNINonLinear/'.format(subject)
+        anat_key = ('T1w.nii.gz')
+        checks.append(_check_key_exists(anat_key, bucket, anat_prefix))
 
         # EV data
         for EV_file in _return_hcp_EV_file_ids(task):
             EV_key = (prefix+'EVs/'+EV_file)
-            checks.append(check_key_exists(EV_key, bucket, prefix))
+            checks.append(_check_key_exists(EV_key, bucket, prefix))
 
     if np.sum(checks) == len(checks):
         return True
@@ -96,6 +101,16 @@ def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output
                  'brainmask_fs.2.nii.gz')
     output_file = paths.path_bids_func_mask_mni(
         subject, task, run, output_path)
+    if not os.path.isfile(output_file):
+        print('downloading file: {}  to  {}'.format(bucket_id, output_file))
+        bucket.download_file(bucket_id, output_file)
+        print('done.')
+
+    # anatomical data
+    bucket_id = ('HCP/{}/'.format(subject) +
+                 'MNINonLinear/' +
+                 'T1w.nii.gz'.format(task, run))
+    output_file = paths.path_bids_anat_mni(subject, task, run, output_path)
     if not os.path.isfile(output_file):
         print('downloading file: {}  to  {}'.format(bucket_id, output_file))
         bucket.download_file(bucket_id, output_file)

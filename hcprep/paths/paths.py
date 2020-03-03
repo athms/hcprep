@@ -17,6 +17,11 @@ def path_bids_func_mni(subject, task, run, path):
         subject, subject, task, run)
 
 
+def path_bids_anat_mni(subject, task, run, path):
+    return path+'sub-{}/anat/sub-{}_task-{}_anat.nii.gz'.format(
+        subject, subject, task)
+
+
 def path_bids_func_mask_mni(subject, task, run, path):
     return path+'sub-{}/func/sub-{}_task-{}_run-{}_brainmask.nii.gz'.format(
         subject, subject, task, run)
