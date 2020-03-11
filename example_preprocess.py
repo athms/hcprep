@@ -12,7 +12,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     # add arguments to parser
     ap.add_argument("--path", required=False,
-                    help="output path to store data")
+                    help="Path to local BIDS data")
     ap.add_argument("--n_tfr", required=False,
                     help="number of TFRecord files to create per HCP task")
     args = vars(ap.parse_args())
@@ -68,8 +68,8 @@ if __name__ == "__main__":
                     subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
                 # write preprocessed data to TFR
                 hcprep.convert.write_to_tfr(tfr_writers,
-                                                          volumes.get_data(), volume_labels,
-                                                          subject_id, task_id, run_id, n_classes_per_task,
-                                                          randomize_volumes=True)
+                                            volumes.get_data(), volume_labels,
+                                            subject_id, task_id, run_id, n_classes_per_task,
+                                            randomize_volumes=True)
                 # close writers
                 [w.close() for w in tfr_writers]
