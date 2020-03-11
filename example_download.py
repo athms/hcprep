@@ -15,9 +15,9 @@ if __name__ == '__main__':
     ap.add_argument("--SECRET_KEY", required=True,
                     help="AWS S3 access key")
     ap.add_argument("--path", required=False,
-                    help="AWS S3 access key")
+                    help="path to store data")
     ap.add_argument("--n_subjects", required=False,
-                    help="AWS S3 access key")
+                    help="number of subjects to download")
     args = vars(ap.parse_args())
     # set variables
     ACCESS_KEY = str(args['ACCESS_KEY'])
