@@ -17,7 +17,7 @@ if __name__ == '__main__':
     ap.add_argument("--path", required=False,
                     help="output path to store data")
     ap.add_argument("--n_subjects", required=False,
-                    help="number of subjects to download")
+                    help="number of subjects to download per HCP task")
     args = vars(ap.parse_args())
     # set variables
     ACCESS_KEY = str(args['ACCESS_KEY'])
