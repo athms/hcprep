@@ -5,8 +5,9 @@ HCPrep stores the data locally in the [Brain Imaging Data Structure](https://bid
 
 To make the tfMRI data usable for DL analyses with tensorflow, HCPrep can also apply simple data cleaning steps to the downloaded task-fMRI data and store these in the [TFRecords format](https://www.tensorflow.org/tutorials/load_data/tfrecord).  
 
+---
 ***NOTE: This project is still under development.***
-
+---
 
 ## 1. Software Dependencies
 HCPrep is written for Python 3.6 and requires a working Python environment running on your computer ([Anaconda Distribution](https://www.anaconda.com/distribution/) is recommended). You will also need to install [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html), [tensorflow (1.13)](https://www.tensorflow.org/install/pip), and [nilearn](https://nilearn.github.io/introduction.html#installing-nilearn). 
