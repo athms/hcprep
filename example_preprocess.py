@@ -52,19 +52,21 @@ if __name__ == "__main__":
     hcprep.paths.make_sure_path_exists(tfr_path)
 
     # write data
+    print('Processing these tasks: {}, with each {} subjects and {} runs.\n'.format(
+        tasks, len(subjects), len(runs)))
     for subject_id, subject in enumerate(subjects):
         print('Processing subject: {}/{}'.format(subject_id+1, len(subjects)))
         for task_id, task in enumerate(tasks):
             for run_id, run in enumerate(runs):
                 # create TFR-writers
-                tfr_writers = [tf.python_io.TFRecordWriter(
+                tfr_writers=[tf.python_io.TFRecordWriter(
                     tfr_path+'task-{}_subject-{}_run-{}_{}.tfrecords'.format(task, subject, run, wi))
                     for wi in range(n_tfr_writers)]
                 # load subject data
-                subject_data = hcprep.data.load_subject_data(
+                subject_data=hcprep.data.load_subject_data(
                     task, subject, [run], path, TR)
                 # preprocess subject data
-                volumes, volume_labels = hcprep.preprocess.preprocess_subject_data(
+                volumes, volume_labels=hcprep.preprocess.preprocess_subject_data(
                     subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
                 # write preprocessed data to TFR
                 hcprep.convert.write_to_tfr(tfr_writers,
