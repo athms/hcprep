@@ -87,7 +87,7 @@ cleaned_fMRI, volume_labels = hcprep.preprocess.preprocess_subject_data(subject_
 ```
 The cleaning steps are:
 1. Linear detrending
-2. Frequency filtering of the temporal voxel time series signals with a butterwoth filter and a high-cutoff of 128s
+2. Frequency filtering of the temporal voxel time series signals with a butterwoth filter
 3. Spatial smoothing
 4. Standardization of the voxel time series signals to have a mean of 0 and unit variance (as described in [Thomas et al. (2019)](https://www.frontiersin.org/articles/10.3389/fnins.2019.01321/full))
 
