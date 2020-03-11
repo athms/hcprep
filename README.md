@@ -111,3 +111,9 @@ hcprep.convert.write_to_tfr(tfr_writers,
                             n_classes_per_task,
                             randomize_volumes=True)
 ```
+The resulting TFRecords file contains one entry for each input fMRI volume with the following features:
+- "volume": the flattened voxel activations of shape 91 x 109 x 91 (flattened over the X, Y, and Z dimensions)
+- "task_id", "subject_id", "run_id"
+- "volume_idx": the time series index of the volume in the input fMRI data
+- "label": the label of the volume within its task (for example [0,1,2,3] for the WM task)
+- "label_indicator": one-hot encoding of the label across all tasks (length determined by sum over n_classes_per_task)
