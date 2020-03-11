@@ -12,9 +12,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     # add arguments to parser
     ap.add_argument("--path", required=False,
-                    help="AWS S3 access key")
+                    help="output path to store data")
     ap.add_argument("--n_tfr", required=False,
-                    help="AWS S3 access key")
+                    help="number of TFRecord files to create")
     args = vars(ap.parse_args())
     # set variables
     if args['path'] is not None:
