@@ -14,7 +14,7 @@ if __name__ == "__main__":
     ap.add_argument("--path", required=False,
                     help="Path to local BIDS data")
     ap.add_argument("--n_tfr", required=False,
-                    help="number of TFRecord files to create per HCP task")
+                    help="number of TFRecord files to create for each combination of task, subject, and run")
     args = vars(ap.parse_args())
     # set variables
     if args['path'] is not None:
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     else:
         n_tfr_writers = 1
     print(
-        'Number of TFR-writers per [task, subject, run]: {}'.format(n_tfr_writers))
+        'Number of TFR-writers for each combination of task, subject, and run: {}'.format(n_tfr_writers))
 
     # extract subject IDs
     subjects = [int(f.split('sub-')[1])
