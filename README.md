@@ -85,10 +85,10 @@ subject_data = hcprep.data.load_subject_data(task, subject, run, path, TR)
 # preprocess subject data
 cleaned_fMRI, volume_labels = hcprep.preprocess.preprocess_subject_data(subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
 ```
-The cleaning steps are:
-1. Linear detrending
-2. Frequency filtering of the temporal voxel time series signals with a butterwoth filter
-3. Spatial smoothing
+The cleaning steps are derived from [nilearn](https://nilearn.github.io/modules/generated/nilearn.signal.clean.html) and include:
+1. Linear detrending of the voxel time series signals
+2. Frequency filtering of the voxel time series signals
+3. Spatial smoothing with a Gaussian kernel
 4. Standardization of the voxel time series signals to have a mean of 0 and unit variance (as described in [Thomas et al. (2019)](https://www.frontiersin.org/articles/10.3389/fnins.2019.01321/full))
 
 ### 4.4 Writing the data to TFRecord files
