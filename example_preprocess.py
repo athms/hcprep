@@ -12,7 +12,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     # add arguments to parser
     ap.add_argument("--path", required=False,
-                    help="Path to local BIDS data")
+                    help="path to local BIDS data")
     ap.add_argument("--n_tfr", required=False,
                     help="number of TFRecord files to create for each combination of task, subject, and run")
     args = vars(ap.parse_args())
