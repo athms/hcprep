@@ -13,7 +13,7 @@ if __name__ == '__main__':
     ap.add_argument("--ACCESS_KEY", required=True,
                     help="AWS S3 access key")
     ap.add_argument("--SECRET_KEY", required=True,
-                    help="AWS S3 access key")
+                    help="AWS S3 secret key")
     ap.add_argument("--path", required=False,
                     help="output path to store data")
     ap.add_argument("--n_subjects", required=False,
