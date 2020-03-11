@@ -14,7 +14,7 @@ if __name__ == "__main__":
     ap.add_argument("--path", required=False,
                     help="output path to store data")
     ap.add_argument("--n_tfr", required=False,
-                    help="number of TFRecord files to create")
+                    help="number of TFRecord files to create per HCP task")
     args = vars(ap.parse_args())
     # set variables
     if args['path'] is not None:
