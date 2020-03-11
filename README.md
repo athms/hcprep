@@ -86,10 +86,10 @@ subject_data = hcprep.data.load_subject_data(task, subject, run, path, TR)
 cleaned_fMRI, volume_labels = hcprep.preprocess.preprocess_subject_data(subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
 ```
 The cleaning steps are:
-- detrending,
-- frequency filtering,
-- smoothing, and
-- standardization of the voxel time series signals (as described in [Thomas et al. (2019)](https://www.frontiersin.org/articles/10.3389/fnins.2019.01321/full))
+1. Linear detrending
+2. Frequency filtering of the temporal voxel time series signals with a butterwoth filter and a high-cutoff of 128s
+3. Spatial smoothing
+4. Standardization of the voxel time series signals to have a mean of 0 and unit variance (as described in [Thomas et al. (2019)](https://www.frontiersin.org/articles/10.3389/fnins.2019.01321/full))
 
 ### 4.4 Writing the data to TFRecord files
 Once the task-fMRI data is cleaned, you can easily write it to the TFRecord data format:
