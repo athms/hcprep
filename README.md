@@ -144,7 +144,7 @@ with tf.variable_scope('data_queue'): # create tf variable scope
     dataset = dataset.repeat()
     # create an iterator
     iterator = dataset.make_initializable_iterator()
-    # get tensors of batch entries
+    # get tensors for parsed batch data
     (tfr_volume,
      tfr_task_id,
      tfr_subject_id,
