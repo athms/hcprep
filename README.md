@@ -117,7 +117,7 @@ The resulting TFRecords file contains one entry for each input fMRI volume with 
 - "label": the label of the volume within its task (for example [0,1,2,3] for the WM task)
 - "label_indicator": one-hot encoding of the label across all tasks (length determined by sum over n_classes_per_task)
 
-### 4.5 Reading the TFRecord files
+### 4.5 Reading TFRecord files
 
 Lastly, you can read the data from the TFRecord files by the use of hcprep's ```parse_tfr``` function. For more information on how to build data queues with TFRecords files and to integrate them in your workflow, see [here](https://www.tensorflow.org/tutorials/load_data/tfrecord) and [here](https://medium.com/@moritzkrger/speeding-up-keras-with-tfrecord-datasets-5464f9836c36). 
 
