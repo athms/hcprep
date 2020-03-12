@@ -123,7 +123,7 @@ Lastly, you can read the data from the TFRecord files by the use of hcprep's ```
 
 This is a quick example of how to setup a data queue:
 
-```
+```python
 batch_size = 8 # batch size 
 n_queue_workers = 1 # number of workers used to parse tfr data
 with tf.variable_scope('data_queue'):
