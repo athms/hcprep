@@ -43,6 +43,7 @@ tasks = ['EMOTION',
          'WM']
  runs = ['LR', 'RL'] # two runs per task
  n_classes_per_task = [2, 3, 2, 5, 2, 2, 4] # number of decoding targets per task
+ t_r = 0.72 # repetition time of fMRI data
 ```
 For further details on the experimental tasks and their decoding targets (i.e., cognitive states), see [this](https://www.sciencedirect.com/science/article/abs/pii/S1053811913005272?via%3Dihub) and [this](https://arxiv.org/pdf/1907.01953.pdf).
 
@@ -89,7 +90,7 @@ subject_data = hcprep.data.load_subject_data(task=task,
                                              subject=subject,
                                              run=run,
                                              path=path,
-                                             TR=TR)
+                                             t_r=t_r)
 
 # preprocess subject data
 cleaned_fMRI, volume_labels = hcprep.preprocess.preprocess_subject_data(
