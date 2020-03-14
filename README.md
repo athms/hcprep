@@ -115,7 +115,7 @@ The resulting TFRecords file contains one entry for each input fMRI volume with 
 - "task_id", "subject_id", "run_id"
 - "volume_idx": the time series index of the volume in the input fMRI data
 - "label": the label of the volume within its task (for example [0,1,2,3] for the WM task)
-- "label_indicator": one-hot encoding of the label across all tasks (length determined by sum over n_classes_per_task)
+- "label_onehot": one-hot encoding of the label across all tasks (length determined by sum over n_classes_per_task)
 
 ### 4.5 Reading TFRecord files
 
@@ -151,7 +151,9 @@ with tf.variable_scope('data_queue'): # create tf variable scope
      tfr_run_id,
      tfr_volume_idx,
      tfr_label,
-     tfr_label_indicator) = iterator.get_next()
+     tfr_label_onehot) = iterator.get_next()
 ```
 
-In this example, you can then use ```tfr_volume``` and ```tfr_label_indicator``` to train your deep learning model.
+In this example, you can then use ```tfr_volume``` and ```tfr_label_onehot``` to train your deep learning model.
+
+Note that ```parse_tfr``` also contains a switch ("only_return_XY") to only return the parsed ```tfr_volume``` and ```tfr_label_onehot``` for easier integration of the TFRecordDataset queue with Keras.
