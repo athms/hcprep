@@ -7,7 +7,7 @@ from nilearn.image import load_img, index_img, concat_imgs
 from ..data._utils import _load_subject_data
 
 
-def _clean_func(func, mask, smoothing_fwhm=3, high_pass=1./128., tr=0.72):
+def _clean_func(func, mask, smoothing_fwhm=3, high_pass=1./128., t_r=0.72):
     masked_func = apply_mask(func,
                              mask,
                              smoothing_fwhm=smoothing_fwhm,
@@ -16,7 +16,7 @@ def _clean_func(func, mask, smoothing_fwhm=3, high_pass=1./128., tr=0.72):
                         detrend=True,
                         standardize=True,
                         high_pass=high_pass,
-                        t_r=tr,
+                        t_r=t_r,
                         ensure_finite=True)
     unmasked_func = unmask(masked_func, mask)
     return unmasked_func
@@ -43,7 +43,7 @@ def preprocess_subject_data(subject_data, runs, high_pass=None, smoothing_fwhm=N
 
     Returns:
         func: ndarray of cleaned voxel time-series signals
-        labels: labels for each TR.
+        labels: labels for each volume (ie., TR).
     """
 
     func = []
@@ -55,7 +55,7 @@ def preprocess_subject_data(subject_data, runs, high_pass=None, smoothing_fwhm=N
 
         trial_type = subject_data[run]['trial_type']
         cleaned_func = _clean_func(
-            func_run, mask_run, smoothing_fwhm=smoothing_fwhm, high_pass=high_pass, tr=subject_data['tr'])
+            func_run, mask_run, smoothing_fwhm=smoothing_fwhm, high_pass=high_pass, t_r=subject_data['tr'])
 
         # subset tfMRI data to valid volumes
         valid_volume_idx = np.isfinite(trial_type)

@@ -35,7 +35,7 @@ if __name__ == "__main__":
                 for f in os.listdir(path) if 'sub' in f]
 
     # HCP exp. descriptors
-    TR = 0.72  # TR in seconds
+    t_r = 0.72  # TR in seconds
     tasks = ['EMOTION',
              'GAMBLING',
              'LANGUAGE',
@@ -64,7 +64,7 @@ if __name__ == "__main__":
                     for wi in range(n_tfr_writers)]
                 # load subject data
                 subject_data=hcprep.data.load_subject_data(
-                    task, subject, [run], path, TR)
+                    task, subject, [run], path, t_r)
                 # preprocess subject data
                 volumes, volume_labels=hcprep.preprocess.preprocess_subject_data(
                     subject_data, [run], high_pass=1./128., smoothing_fwhm=3)

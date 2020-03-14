@@ -93,11 +93,11 @@ def _init_datadict(subject,
                    task,
                    runs,
                    path,
-                   TR):
+                   t_r):
     f = {}
     f['anat'] = None
     f['anat_mni'] = None
-    f['tr'] = TR
+    f['tr'] = t_r
     f['runs'] = runs
     for ri, run in enumerate(runs):
         f_run = {}
@@ -112,8 +112,8 @@ def _init_datadict(subject,
         f_run['trial_type'] = np.zeros_like(f_run['trial']) * np.nan
         f_run['n_valid_volumes'] = 0
         f_run['n_trials'] = 0
-        f_run['onset'] = np.arange(0, f_run['n_volumes']*TR, TR)
-        f_run['end'] = f_run['onset'] + TR
+        f_run['onset'] = np.arange(0, f_run['n_volumes']*t_r, t_r)
+        f_run['end'] = f_run['onset'] + t_r
 
         f[run] = f_run
     return f
@@ -121,8 +121,8 @@ def _init_datadict(subject,
 
 def _add_markers_to_datadict(f, EV, n_volumes_discard_trial_onset=1, n_volumes_add_trial_end=1):
 
-    # extract TR
-    TR = f['tr']
+    # extract t_r
+    t_r = f['tr']
 
     # recode stimulus classes
     event_types = EV['event_type'].values
@@ -152,9 +152,9 @@ def _add_markers_to_datadict(f, EV, n_volumes_discard_trial_onset=1, n_volumes_a
             trial_onset = trial_data['onset'].values[0]
             trial_end = trial_data['end'].values[0]
             volume_idx = np.where((f[run]['onset'] >= (trial_onset +
-                                                       (n_volumes_discard_trial_onset*TR))) &
-                                  (f[run]['onset'] <= (trial_end+TR +
-                                                       (n_volumes_add_trial_end*TR))))[0]
+                                                       (n_volumes_discard_trial_onset*t_r))) &
+                                  (f[run]['onset'] <= (trial_end+t_r +
+                                                       (n_volumes_add_trial_end*t_r))))[0]
             f[run]['trial'][volume_idx] = trial
             f[run]['n_trial_volumes'][volume_idx] = volume_idx.size
             f[run]['rel_onset'][volume_idx] = f[run]['onset'][volume_idx] - trial_onset
@@ -165,8 +165,8 @@ def _add_markers_to_datadict(f, EV, n_volumes_discard_trial_onset=1, n_volumes_a
     return f
 
 
-def _load_subject_data(subject, task, runs, path, TR):
-    f = _init_datadict(subject, task, runs, path, TR)
+def _load_subject_data(subject, task, runs, path, t_r):
+    f = _init_datadict(subject, task, runs, path, t_r)
     EV_list = []
     for run in runs:
         EV_run = pd.read_csv(paths.path_bids_EV(subject, task, run, path))
