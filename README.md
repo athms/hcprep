@@ -5,7 +5,9 @@ HCPrep stores the data locally in the [Brain Imaging Data Structure](https://bid
 
 To make the tfMRI data usable for DL analyses with tensorflow, HCPrep can also apply simple data cleaning steps to the downloaded task-fMRI data and store these in the [TFRecords format](https://www.tensorflow.org/tutorials/load_data/tfrecord).  
 
-***NOTE: THIS PROJECT IS STILL UNDER DEVELOPMENT.***
+```diff
+- NOTE: THIS PROJECT IS STILL UNDER DEVELOPMENT.
+```
 
 ## 1. Software Dependencies
 HCPrep is written for Python 3.6 and requires a working Python environment running on your computer ([Anaconda Distribution](https://www.anaconda.com/distribution/) is recommended). You will also need to install [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html), [tensorflow (1.13)](https://www.tensorflow.org/install/pip), and [nilearn](https://nilearn.github.io/introduction.html#installing-nilearn). 
@@ -57,7 +59,11 @@ run_id = 1 # 'RL' is the second run
 subject = '100307' # an example subject
 output_path = 'data/' # path to store the downloaded data
 
-hcprep.download.download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output_path)
+hcprep.download.download_hcp_subject_data(ACCESS_KEY, SECRET_KEY,
+                                          subject=subject,
+                                          task=task,
+                                          run=run,
+                                          output_path=output_path)
 ```
 
 ### 4.2 Interacting with the data
@@ -65,13 +71,13 @@ HCPrep also contains a set of functions that allow to easily interact with the l
 
 ```python
 # to get the path of the event files
-hcprep.paths.path_bids_EV(subject, task, run, path)
+hcprep.paths.path_bids_EV(subject=subject, task=task, run=run, path=path)
 
 # to get the path of the BOLD data in MNI space
-hcprep.paths.path_bids_func_mni(subject, task, run, path)
+hcprep.paths.path_bids_func_mni(subject=subject, task=task, run=run, path=path)
 
 # to get the path of the BOLD MASK in MNI space
-hcprep.paths.path_bids_func_mask_mni(subject, task, run, path)
+hcprep.paths.path_bids_func_mask_mni(subject=subject, task=task, run=run, path=path)
 ```
 
 ### 4.3 Cleaning the data
@@ -79,10 +85,15 @@ Once the task-fMRI data is downloaded you can clean it as follows:
 
 ```python
 # load the subject data
-subject_data = hcprep.data.load_subject_data(task, subject, run, path, TR)
+subject_data = hcprep.data.load_subject_data(task=task,
+                                             subject=subject,
+                                             run=run,
+                                             path=path,
+                                             TR=TR)
 
 # preprocess subject data
-cleaned_fMRI, volume_labels = hcprep.preprocess.preprocess_subject_data(subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
+cleaned_fMRI, volume_labels = hcprep.preprocess.preprocess_subject_data(
+         subject_data=subject_data, runs=[run], high_pass=1./128., smoothing_fwhm=3)
 ```
 The cleaning steps are derived from [nilearn](https://nilearn.github.io/modules/generated/nilearn.signal.clean.html) and include:
 1. Linear detrending of the voxel time series signals
@@ -104,10 +115,13 @@ tfr_writers = [tf.python_io.TFRecordWriter(
                
 
 # write preprocessed data to TFR
-hcprep.convert.write_to_tfr(tfr_writers,
-                            cleaned_fMRI.get_data(), volume_labels,
-                            subject, task_id, run_id,
-                            n_classes_per_task,
+hcprep.convert.write_to_tfr(tfr_writers=tfr_writers,
+                            fMRI_data=cleaned_fMRI.get_data(),
+                            volume_labels=volume_labels,
+                            subject_id=subject,
+                            task_id=task_id,
+                            run_id=run_id,
+                            n_classes_per_task=n_classes_per_task,
                             randomize_volumes=True)
 ```
 The resulting TFRecords file contains one entry for each input fMRI volume with the following features:
@@ -115,7 +129,7 @@ The resulting TFRecords file contains one entry for each input fMRI volume with 
 - "task_id", "subject_id", "run_id"
 - "volume_idx": the time series index of the volume in the input fMRI data
 - "label": the label of the volume within its task (for example [0,1,2,3] for the WM task)
-- "label_indicator": one-hot encoding of the label across all tasks (length determined by sum over n_classes_per_task)
+- "label_onehot": one-hot encoding of the label across all tasks (length determined by sum over n_classes_per_task)
 
 ### 4.5 Reading TFRecord files
 
@@ -134,7 +148,8 @@ with tf.variable_scope('data_queue'): # create tf variable scope
     # pool-map for the dataset and parse function
     dataset = dataset.map(
         lambda x: hcprep.convert.parse_tfr(
-        x, nx, ny, nz, n_classes), n_queue_workers)
+        x, nx=nx, ny=ny, nz=nz, n_classes=n_classes,
+        only_return_XY=False), n_queue_workers)
     # ignore errors, e.g., when the queued files do not
     # contain enough entries to fill up the next batch
     dataset = dataset.apply(tf.data.experimental.ignore_errors())
@@ -151,7 +166,9 @@ with tf.variable_scope('data_queue'): # create tf variable scope
      tfr_run_id,
      tfr_volume_idx,
      tfr_label,
-     tfr_label_indicator) = iterator.get_next()
+     tfr_label_onehot) = iterator.get_next()
 ```
 
-In this example, you can then use ```tfr_volume``` and ```tfr_label_indicator``` to train your deep learning model.
+In this example, you can then use ```tfr_volume``` and ```tfr_label_onehot``` to train your deep learning model.
+
+Note that ```parse_tfr``` also contains a switch ("only_return_XY") to only return the parsed ```tfr_volume``` and ```tfr_label_onehot``` for easier integration of the TFRecordDataset queue with Keras.
