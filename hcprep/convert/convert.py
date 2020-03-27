@@ -44,7 +44,7 @@ def write_to_tfr(tfr_writers,
             label_onehot = [np.zeros(nc) for nc in n_classes_per_task]
             label_onehot[task_id][label] = 1
             label_onehot = np.concatenate(label_onehot)
-            volume = np.array(X[:, :, :, vi].T.reshape(
+            volume = np.array(X[:, :, :, vi].reshape(
                 nx*ny*nz), dtype=np.float32)
             v_sample = tf.train.Example(
                 features=tf.train.Features(
@@ -97,7 +97,7 @@ def parse_tfr(example_proto, nx, ny, nz, n_classes, only_parse_XY=False):
                 'label_onehot': tf.FixedLenFeature([n_classes], tf.int64)}
     parsed_features = tf.parse_single_example(example_proto, features)
     volume_flat = parsed_features["volume"]
-    volume = tf.reshape(volume_flat, [nz, ny, nx])
+    volume = tf.reshape(volume_flat, [nx, ny, nz])
     label_onehot = parsed_features["label_onehot"]
 
     if only_parse_XY:
