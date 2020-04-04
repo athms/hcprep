@@ -29,7 +29,7 @@ region=eu-central-1
 Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
 ## 4. Basic Usage
-All basic iformation about the HCP task-fMRI data is contained in the `basics` class of the `info` module.
+All basic information about the task-fMRI data is contained in the `basics` class of the `info` module.
 
 This class contains the:
 - names of all HCP tasks 
