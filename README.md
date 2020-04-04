@@ -29,23 +29,26 @@ region=eu-central-1
 Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
 ## 4. Basic Usage
-HCPrep already contains the subject-IDs of 1000 participants for each of the seven task-fMRI tasks of the HCP task-fMRI data (see below). These can be found in the `subject_ids` directory. If more IDs are required, these can retrieved with the `retrieve_subject_ids` function of the `download` module. 
+All basic iformation about the HCP task-fMRI data is contained in the `basics` class of the `info` module.
 
-Overall, the task-fMRI data span the following seven tasks:
+This class contains the:
+- names of all HCP tasks 
+- names of each class (ie., cognitive state) within each task
+- number of classes per task
+- subject IDs for each task
+- run IDs
+- repetition time of the fMRI data in seconds
 
 ```python
-tasks = ['EMOTION',
-         'GAMBLING',
-         'LANGUAGE',
-         'MOTOR',
-         'RELATIONAL',
-         'SOCIAL',
-         'WM']
- runs = ['LR', 'RL'] # two runs per task
- n_classes_per_task = [2, 3, 2, 5, 2, 2, 4] # number of decoding targets per task
- t_r = 0.72 # repetition time of fMRI data
+hcp_info = hcprep.info.basics()
+
+tasks = hcp_info.tasks
+runs = hcp_info.runs
+t_r = hcp_info.t_r
 ```
 For further details on the experimental tasks and their decoding targets (i.e., cognitive states), see [this](https://www.sciencedirect.com/science/article/abs/pii/S1053811913005272?via%3Dihub) and [this](https://arxiv.org/pdf/1907.01953.pdf).
+
+The `basics` class contains the IDs of the first 1000 subjects of each task. If more subject Ids are required, these can be retrieved by the use of the `retrieve_subject_ids` of the `download` module.
 
 ### 4.1 Downloading the data
 The task-fMRI data of a subject can be downloaded to a local machine as follows:
@@ -53,11 +56,11 @@ The task-fMRI data of a subject can be downloaded to a local machine as follows:
 ```python
 import hcprep
 
-task = 'WM'
-task_id = 6 # 'WM' is the last of seven tasks
-run = 'RL'
-run_id = 1 # 'RL' is the second run
-subject = '100307' # an example subject
+task = 'WM' # working memory task (WM)
+task_id = np.where(hcp_info.tasks==task)[0][0] # 6: 'WM' is the last of out of all seven tasks
+run = runs[0] # runs are ['LR', 'RL']
+run_id = np.where(hcp_info.runs==run)[0][0] # 0: 'LR' is the first run in runs
+subject = hcp_info.subjects[task][0] # the first subject of the WM task
 output_path = 'data/' # path to store the downloaded data
 
 hcprep.download.download_subject_data(ACCESS_KEY, SECRET_KEY,
@@ -109,10 +112,8 @@ Once the task-fMRI data is cleaned, you can easily write it to the TFRecord data
 import tensorflow as tf
 
 # create a TFR-writer
-n_tfr_writers = 1
 tfr_writers = [tf.python_io.TFRecordWriter(
-               tfr_path+'task-{}_subject-{}_run-{}_{}.tfrecords'.format(task, subject, run, wi))
-               for wi in range(n_tfr_writers)]
+               tfr_path+'task-{}_subject-{}_run-{}.tfrecords'.format(task, subject, run)]
                
 
 # write preprocessed data to TFR
