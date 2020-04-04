@@ -3,9 +3,9 @@ import numpy as np
 
 
 class basics:
-    """A simple class to contain
-    all the information about the 
-    Human Connectome Project data.
+    """A simple class containing
+    all basic information about the 
+    Human Connectome Project task-fMRI data.
 
     Attributes:
         tasks: task names
@@ -14,7 +14,7 @@ class basics:
         n_classes_per_task: List with number of classes
             per task
         runs: List or run names
-        subjects: Dictionary of subject IDs per task
+        subjects: Dictionary of subject IDs for each task
         t_r: Repetition time of fMRI data (in seconds)
     """
 
