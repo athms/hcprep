@@ -4,4 +4,4 @@ from .download import connect_to_hcp_bucket, retrieve_subject_ids, check_subject
 __all__ = ['connect_to_hcp_bucket',
            'retrieve_subject_ids',
            'check_subject_data_present',
-           'download_hcp_subject_data']
+           'download_subject_data']

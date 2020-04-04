@@ -102,7 +102,7 @@ def check_subject_data_present(bucket, subject, task, runs):
         return False
 
 
-def download_hcp_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output_path):
+def download_subject_data(ACCESS_KEY, SECRET_KEY, subject, task, run, output_path):
     """Download the task-fMRI data of a HCP subject
     in a task run and write it to a local directory 
     in the Brain Imaging Data Structure (BIDS) format.
