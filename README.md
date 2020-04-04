@@ -60,11 +60,11 @@ run_id = 1 # 'RL' is the second run
 subject = '100307' # an example subject
 output_path = 'data/' # path to store the downloaded data
 
-hcprep.download.download_hcp_subject_data(ACCESS_KEY, SECRET_KEY,
-                                          subject=subject,
-                                          task=task,
-                                          run=run,
-                                          output_path=output_path)
+hcprep.download.download_subject_data(ACCESS_KEY, SECRET_KEY,
+                                      subject=subject,
+                                      task=task,
+                                      run=run,
+                                      output_path=output_path)
 ```
 
 ### 4.2 Interacting with the data
