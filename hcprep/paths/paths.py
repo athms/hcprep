@@ -34,7 +34,7 @@ def path_bids_func_mni(subject, task, run, path):
         runs: String ID of HCP run (one of ["LR", "RL"])
         path: Path to local BIDS directory.
     """
-    return path+'sub-{}/func/sub-{}_task-{}_run-{}_bold.nii.gz'.format(
+    return path+'sub-{}/func/sub-{}_task-{}_run-{}_space-MNI152NLin6Asym_desc-prepoc_bold.nii.gz'.format(
         subject, subject, task, run)
 
 
@@ -47,7 +47,7 @@ def path_bids_anat_mni(subject, task, path):
         task: String ID of HCP task.
         path: Path to local BIDS directory.
     """
-    return path+'sub-{}/anat/sub-{}_task-{}_anat.nii.gz'.format(
+    return path+'sub-{}/anat/sub-{}_task-{}_space-MNI152NLin6Asym_desc-prepoc_anat.nii.gz'.format(
         subject, subject, task)
 
 
@@ -61,5 +61,5 @@ def path_bids_func_mask_mni(subject, task, run, path):
         runs: String ID of HCP run (one of ["LR", "RL"])
         path: Path to local BIDS directory.
     """
-    return path+'sub-{}/func/sub-{}_task-{}_run-{}_brainmask.nii.gz'.format(
+    return path+'sub-{}/func/sub-{}_task-{}_run-{}_space-MNI152NLin6Asym_desc-prepoc_brainmask.nii.gz'.format(
         subject, subject, task, run)
