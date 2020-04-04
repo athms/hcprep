@@ -32,15 +32,14 @@ Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS
 All basic information about the task-fMRI data is contained in the `basics` class of the `info` module.
 
 The `basics` class contains the:
-- names of all HCP tasks: 'EMOTION', 'GAMBLING', 'LANGUAGE', 'MOTOR', 'RELATIONAL', 'SOCIAL', 'WM'
-- names of each class (ie., cognitive state) within each task
-- subject IDs for each task
-- run IDs: 'LR', 'RL'
-- repetition time of the fMRI data in seconds: 0.72
+- `tasks`: names of all HCP tasks ('EMOTION', 'GAMBLING', 'LANGUAGE', 'MOTOR', 'RELATIONAL', 'SOCIAL', 'WM')
+- `classes_per_task`: dictionary of names of each class (ie., cognitive state) within each task
+- `subjects`: dictionary of subject IDs for each task
+- `runs`: task-fMRI run IDs ('LR', 'RL')
+- `t_r`: repetition time of the fMRI data in seconds (0.72)
 
 ```python
 hcp_info = hcprep.info.basics()
-
 tasks = hcp_info.tasks
 runs = hcp_info.runs
 t_r = hcp_info.t_r
