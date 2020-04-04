@@ -31,13 +31,12 @@ Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS
 ## 4. Basic Usage
 All basic information about the task-fMRI data is contained in the `basics` class of the `info` module.
 
-This class contains the:
-- names of all HCP tasks 
+The `basics` class contains the:
+- names of all HCP tasks: 'EMOTION', 'GAMBLING', 'LANGUAGE', 'MOTOR', 'RELATIONAL', 'SOCIAL', 'WM'
 - names of each class (ie., cognitive state) within each task
-- number of classes per task
 - subject IDs for each task
-- run IDs
-- repetition time of the fMRI data in seconds
+- run IDs: 'LR', 'RL'
+- repetition time of the fMRI data in seconds: 0.72
 
 ```python
 hcp_info = hcprep.info.basics()
@@ -123,7 +122,7 @@ hcprep.convert.write_to_tfr(tfr_writers=tfr_writers,
                             subject_id=subject,
                             task_id=task_id,
                             run_id=run_id,
-                            n_classes_per_task=n_classes_per_task,
+                            n_classes_per_task=hcp_info.n_classes_per_task, # a list of the number of classes for each task
                             randomize_volumes=True)
 ```
 The resulting TFRecords file contains one entry for each input fMRI volume with the following features:
