@@ -19,13 +19,8 @@ class basics:
     """
 
     def __init__(self):
-        self.tasks = ['EMOTION',
-                      'GAMBLING',
-                      'LANGUAGE',
-                      'MOTOR',
-                      'RELATIONAL',
-                      'SOCIAL',
-                      'WM']
+        self.tasks = ['EMOTION', 'GAMBLING', 'LANGUAGE',
+                      'MOTOR', 'RELATIONAL', 'SOCIAL', 'WM']
         self.classes_per_task = dict(EMOTION=['fear', 'neut'],
                                      GAMBLING=['loss', 'neut', 'win'],
                                      LANGUAGE=['math', 'story'],
