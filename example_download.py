@@ -51,5 +51,5 @@ if __name__ == '__main__':
             'subject_ids/tfMRI_{}_subject_ids.npy'.format(task))[:n_subjects]
         for subject in task_subjects:
             for run in runs:
-                hcprep.download.download_hcp_subject_data(
+                hcprep.download.download_subject_data(
                     ACCESS_KEY, SECRET_KEY, subject, task, run, output_path)
