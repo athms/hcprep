@@ -29,7 +29,11 @@ region=eu-central-1
 Choose the region based on your [location](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
 ## 4. Basic Usage
-All basic information about the task-fMRI data is contained in the `basics` class of the `info` module.
+All basic information about the task-fMRI data is contained in the `basics` class of the `info` module:
+
+```python
+hcp_info = hcprep.info.basics()
+```
 
 The `basics` class contains the:
 - `tasks`: names of all HCP tasks ('EMOTION', 'GAMBLING', 'LANGUAGE', 'MOTOR', 'RELATIONAL', 'SOCIAL', 'WM')
@@ -39,7 +43,6 @@ The `basics` class contains the:
 - `t_r`: repetition time of the fMRI data in seconds (0.72)
 
 ```python
-hcp_info = hcprep.info.basics()
 tasks = hcp_info.tasks
 runs = hcp_info.runs
 t_r = hcp_info.t_r
