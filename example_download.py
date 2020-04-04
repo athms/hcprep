@@ -35,7 +35,7 @@ if __name__ == '__main__':
         n_subjects = 2
     print('n_subjects to download: {}'.format(n_subjects))
 
-    # HCP exp. descriptors
+    # HCP data information
     hcp_info = hcprep.info.basics()    
 
     # download subject data

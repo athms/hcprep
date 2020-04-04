@@ -34,7 +34,7 @@ if __name__ == "__main__":
     subjects = [int(f.split('sub-')[1])
                 for f in os.listdir(path) if 'sub' in f]
 
-    # HCP exp. descriptors
+    # HCP data information
     hcp_info = hcprep.info.basics()
 
     # tfr path
