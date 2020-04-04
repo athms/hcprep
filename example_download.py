@@ -36,20 +36,11 @@ if __name__ == '__main__':
     print('n_subjects to download: {}'.format(n_subjects))
 
     # HCP exp. descriptors
-    tasks = ['EMOTION',
-             'GAMBLING',
-             'LANGUAGE',
-             'MOTOR',
-             'RELATIONAL',
-             'SOCIAL',
-             'WM']
-    runs = ['LR', 'RL']
+    hcp_info = hcprep.info.basics()    
 
     # download subject data
-    for task in tasks:
-        task_subjects = np.load(
-            'subject_ids/tfMRI_{}_subject_ids.npy'.format(task))[:n_subjects]
-        for subject in task_subjects:
-            for run in runs:
+    for task in hcp_info.tasks:
+        for subject in hcp_info.subjects[task][:n_subjects]:
+            for run in hcp_info.runs:
                 hcprep.download.download_subject_data(
                     ACCESS_KEY, SECRET_KEY, subject, task, run, output_path)

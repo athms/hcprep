@@ -35,17 +35,7 @@ if __name__ == "__main__":
                 for f in os.listdir(path) if 'sub' in f]
 
     # HCP exp. descriptors
-    t_r = 0.72  # TR in seconds
-    tasks = ['EMOTION',
-             'GAMBLING',
-             'LANGUAGE',
-             'MOTOR',
-             'RELATIONAL',
-             'SOCIAL',
-             'WM']
-    runs = ['LR', 'RL']
-    # number of decoding targets per task
-    n_classes_per_task = [2, 3, 2, 5, 2, 2, 4]
+    hcp_info = hcprep.info.basics()
 
     # tfr path
     tfr_path = path+'tfr/'
@@ -53,25 +43,30 @@ if __name__ == "__main__":
 
     # write data
     print('Processing these tasks: {}, with each {} subjects and {} runs.\n'.format(
-        tasks, len(subjects), len(runs)))
+        hcp_info.tasks, len(subjects), len(hcp_info.runs)))
     for subject_id, subject in enumerate(subjects):
         print('Processing subject: {}/{}'.format(subject_id+1, len(subjects)))
-        for task_id, task in enumerate(tasks):
-            for run_id, run in enumerate(runs):
+        for task_id, task in enumerate(hcp_info.tasks):
+            for run_id, run in enumerate(hcp_info.runs):
                 # create TFR-writers
-                tfr_writers=[tf.python_io.TFRecordWriter(
-                    tfr_path+'task-{}_subject-{}_run-{}_{}.tfrecords'.format(task, subject, run, wi))
+                tfr_writers = [tf.python_io.TFRecordWriter(
+                    tfr_path+'task-{}_subject-{}_run-{}_{}.tfrecords'.format(
+                        task, subject, run, wi))
                     for wi in range(n_tfr_writers)]
                 # load subject data
-                subject_data=hcprep.data.load_subject_data(
-                    task, subject, [run], path, t_r)
+                subject_data = hcprep.data.load_subject_data(
+                    task, subject, [run], path, hcp_info.t_r)
                 # preprocess subject data
-                volumes, volume_labels=hcprep.preprocess.preprocess_subject_data(
+                volumes, volume_labels = hcprep.preprocess.preprocess_subject_data(
                     subject_data, [run], high_pass=1./128., smoothing_fwhm=3)
                 # write preprocessed data to TFR
                 hcprep.convert.write_to_tfr(tfr_writers,
-                                            volumes.get_data(), volume_labels,
-                                            subject_id, task_id, run_id, n_classes_per_task,
+                                            volumes.get_data(),
+                                            volume_labels,
+                                            subject_id,
+                                            task_id,
+                                            run_id,
+                                            n_classes_per_task,
                                             randomize_volumes=True)
                 # close writers
                 [w.close() for w in tfr_writers]
