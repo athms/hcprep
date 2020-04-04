@@ -13,8 +13,6 @@ if __name__ == "__main__":
     # add arguments to parser
     ap.add_argument("--path", required=False,
                     help="path to local BIDS data")
-    ap.add_argument("--n_tfr", required=False,
-                    help="number of TFRecord files to create for each combination of task, subject, and run")
     args = vars(ap.parse_args())
     # set variables
     if args['path'] is not None:
@@ -23,13 +21,7 @@ if __name__ == "__main__":
     else:
         path = 'data/'
         print('"path" not defined. Defaulting to: {}'.format(path))
-    if args['n_tfr'] is not None:
-        n_tfr_writers = int(args['n_tfr'])
-    else:
-        n_tfr_writers = 1
-    print(
-        'Number of TFR-writers for each combination of task, subject, and run: {}'.format(n_tfr_writers))
-
+    
     # extract subject IDs
     subjects = [int(f.split('sub-')[1])
                 for f in os.listdir(path) if 'sub' in f]
@@ -50,9 +42,8 @@ if __name__ == "__main__":
             for run_id, run in enumerate(hcp_info.runs):
                 # create TFR-writers
                 tfr_writers = [tf.python_io.TFRecordWriter(
-                    tfr_path+'task-{}_subject-{}_run-{}_{}.tfrecords'.format(
-                        task, subject, run, wi))
-                    for wi in range(n_tfr_writers)]
+                    tfr_path+'task-{}_subject-{}_run-{}.tfrecords'.format(
+                        task, subject, run))]
                 # load subject data
                 subject_data = hcprep.data.load_subject_data(
                     task, subject, [run], path, hcp_info.t_r)
