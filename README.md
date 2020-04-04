@@ -144,22 +144,29 @@ This is a quick example of how to setup a data queue:
 batch_size = 8 # batch size 
 n_queue_workers = 1 # number of workers used to parse tfr data (see below)
 with tf.variable_scope('data_queue'): # create tf variable scope
+
     # define a placeholder for the TFRecord filenames that later will be parsed
     filenames = tf.placeholder(tf.string, shape=[None])
+    
     # setup a TFRecord dataset instance
     dataset = tf.data.TFRecordDataset(filenames)
+    
     # pool-map for the dataset and parse function
     dataset = dataset.map(
         lambda x: hcprep.convert.parse_tfr(
         x, nx=nx, ny=ny, nz=nz, n_classes=n_classes,
         only_return_XY=False), n_queue_workers)
+        
     # ignore errors, e.g., when the queued files do not
     # contain enough entries to fill up the next batch
     dataset = dataset.apply(tf.data.experimental.ignore_errors())
+    
     # specify the batch size
     dataset = dataset.batch(batch_size)
+    
     # repeat the dataset for training
     dataset = dataset.repeat()
+    
     # create an iterator
     iterator = dataset.make_initializable_iterator()
     # get tensors for parsed batch data
