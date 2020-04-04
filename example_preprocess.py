@@ -57,7 +57,7 @@ if __name__ == "__main__":
                                             subject_id,
                                             task_id,
                                             run_id,
-                                            n_classes_per_task,
+                                            hcp_info.n_classes_per_task,
                                             randomize_volumes=True)
                 # close writers
                 [w.close() for w in tfr_writers]
