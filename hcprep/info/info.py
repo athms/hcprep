@@ -3,9 +3,9 @@ import numpy as np
 
 
 class basics:
-    """A simple class containing
-    all basic information about the 
-    Human Connectome Project task-fMRI data.
+    """All basic descriptive information
+    about the Human Connectome Project
+    task-fMRI data.
 
     Attributes:
         tasks: task names
