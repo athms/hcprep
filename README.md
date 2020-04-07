@@ -44,7 +44,7 @@ hcp_info = hcprep.info.basics()
 
 For further details on the experimental tasks and their decoding targets (i.e., cognitive states), see [this](https://www.sciencedirect.com/science/article/abs/pii/S1053811913005272?via%3Dihub) and [this](https://arxiv.org/pdf/1907.01953.pdf).
 
-The `basics` class contains the IDs of the first 1000 subjects of each task. If more subject IDs are required, these can be retrieved by the use of the `retrieve_subject_ids` function of the `download` module.
+If more subject IDs are required, these can be retrieved by the use of the `retrieve_subject_ids` function of the `download` module.
 
 ### 4.1 Downloading the data
 The task-fMRI data of a subject can be downloaded to a local machine as follows:
