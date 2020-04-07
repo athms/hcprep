@@ -35,10 +35,10 @@ All necessary descriptive information about the HCP task-fMRI data is contained 
 hcp_info = hcprep.info.basics()
 ```
 
-`basics` contains the following attributes:
-- `tasks`: names of all HCP tasks ('EMOTION', 'GAMBLING', 'LANGUAGE', 'MOTOR', 'RELATIONAL', 'SOCIAL', 'WM')
-- `classes_per_task`: dictionary of names of each class (ie., cognitive state) within each task
-- `subjects`: dictionary of 1000 subject IDs for each task
+`basics` contains the following information:
+- `tasks`: names of all HCP fMRI tasks ('EMOTION', 'GAMBLING', 'LANGUAGE', 'MOTOR', 'RELATIONAL', 'SOCIAL', 'WM')
+- `classes_per_task`: dictionary containing names of each class (ie., cognitive state) within each task
+- `subjects`: dictionary containing 1000 subject IDs for each task
 - `runs`: task-fMRI run IDs ('LR', 'RL')
 - `t_r`: repetition time of the fMRI data in seconds (0.72)
 
