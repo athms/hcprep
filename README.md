@@ -58,9 +58,7 @@ The task-fMRI data of a subject can be downloaded to a local machine as follows:
 import hcprep
 
 task = 'WM' # working memory task (WM)
-task_id = np.where(hcp_info.tasks==task)[0][0] # 6: 'WM' is the last of out of all seven tasks
 run = runs[0] # runs are ['LR', 'RL']
-run_id = np.where(hcp_info.runs==run)[0][0] # 0: 'LR' is the first run in runs
 subject = hcp_info.subjects[task][0] # the first subject of the WM task
 output_path = 'data/' # path to store the downloaded data
 
@@ -111,6 +109,10 @@ Once the task-fMRI data is cleaned, you can easily write it to the TFRecord data
 
 ```python
 import tensorflow as tf
+
+# the task and run are encoded numerically in the TFR-files
+task_id = np.where(hcp_info.tasks==task)[0][0] # 6: 'WM' is the last of out of all seven tasks in hcp_info.tasks
+run_id = np.where(hcp_info.runs==run)[0][0] # 0: 'LR' is the first run in hcp_info.runs
 
 # create a TFR-writer
 tfr_writers = [tf.python_io.TFRecordWriter(
