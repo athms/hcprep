@@ -42,11 +42,6 @@ hcp_info = hcprep.info.basics()
 - `runs`: task-fMRI run IDs ('LR', 'RL')
 - `t_r`: repetition time of the fMRI data in seconds (0.72)
 
-```python
-tasks = hcp_info.tasks
-runs = hcp_info.runs
-t_r = hcp_info.t_r
-```
 For further details on the experimental tasks and their decoding targets (i.e., cognitive states), see [this](https://www.sciencedirect.com/science/article/abs/pii/S1053811913005272?via%3Dihub) and [this](https://arxiv.org/pdf/1907.01953.pdf).
 
 The `basics` class contains the IDs of the first 1000 subjects of each task. If more subject IDs are required, these can be retrieved by the use of the `retrieve_subject_ids` function of the `download` module.
@@ -58,7 +53,7 @@ The task-fMRI data of a subject can be downloaded to a local machine as follows:
 import hcprep
 
 task = 'WM' # working memory task (WM)
-run = runs[0] # runs are ['LR', 'RL']
+run = hcp_info.runs[0] # the first run
 subject = hcp_info.subjects[task][0] # the first subject of the WM task
 output_path = 'data/' # path to store the downloaded data
 
@@ -92,7 +87,7 @@ subject_data = hcprep.data.load_subject_data(task=task,
                                              subject=subject,
                                              run=run,
                                              path=path,
-                                             t_r=t_r)
+                                             t_r=hcp_info.t_r)
 
 # preprocess subject data
 cleaned_fMRI, volume_labels = hcprep.preprocess.preprocess_subject_data(
