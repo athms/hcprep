@@ -38,28 +38,24 @@ def write_to_tfr(tfr_writers,
     if randomize_volumes:
         np.random.shuffle(_vidx)
     for vi in _vidx:
-        try:
-            writer = np.random.choice(tfr_writers)
-            label = np.int(y[vi])
-            label_onehot = [np.zeros(nc) for nc in n_classes_per_task]
-            label_onehot[task_id][label] = 1
-            label_onehot = np.concatenate(label_onehot)
-            volume = np.array(X[:, :, :, vi].reshape(
-                nx*ny*nz), dtype=np.float32)
-            v_sample = tf.train.Example(
-                features=tf.train.Features(
-                    feature={'volume': tf.train.Feature(float_list=tf.train.FloatList(value=list(volume))),
-                             'task_id': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(task_id)])),
-                             'subject_id': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(subject_id)])),
-                             'run_id': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(run_id)])),
-                             'volume_idx': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(vi)])),
-                             'label': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(label)])),
-                             'label_onehot': tf.train.Feature(int64_list=tf.train.Int64List(value=list(label_onehot.astype(np.int64))))}))
-            serialized = v_sample.SerializeToString()
-            writer.write(serialized)
-        except:
-            continue
-
+        writer = np.random.choice(tfr_writers)
+        label = np.int(y[vi])
+        label_onehot = [np.zeros(nc) for nc in n_classes_per_task]
+        label_onehot[task_id][label] = 1
+        label_onehot = np.concatenate(label_onehot)
+        volume = np.array(X[:, :, :, vi].reshape(
+            nx*ny*nz), dtype=np.float32)
+        v_sample = tf.train.Example(
+            features=tf.train.Features(
+                feature={'volume': tf.train.Feature(float_list=tf.train.FloatList(value=list(volume))),
+                         'task_id': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(task_id)])),
+                         'subject_id': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(subject_id)])),
+                         'run_id': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(run_id)])),
+                         'volume_idx': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(vi)])),
+                         'label': tf.train.Feature(int64_list=tf.train.Int64List(value=[np.int64(label)])),
+                         'label_onehot': tf.train.Feature(int64_list=tf.train.Int64List(value=list(label_onehot.astype(np.int64))))}))
+        serialized = v_sample.SerializeToString()
+        writer.write(serialized)
 
 def parse_tfr(example_proto, nx, ny, nz, n_classes, only_parse_XY=False):
     """Parse TFR-data
