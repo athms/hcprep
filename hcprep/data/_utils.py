@@ -146,10 +146,9 @@ def _add_markers_to_datadict(f, EV, n_volumes_discard_trial_onset=1, n_volumes_a
             run = trial_data['run'].values[0]
             trial_onset = trial_data['onset'].values[0]
             trial_end = trial_data['end'].values[0]
-            volume_idx = np.where((f[run]['onset'] >= (trial_onset +
-                                                       (n_volumes_discard_trial_onset*t_r))) &
-                                  (f[run]['onset'] <= (trial_end+t_r +
-                                                       (n_volumes_add_trial_end*t_r))))[0]
+            volume_idx = np.where(
+              (f[run]['onset'] >= (trial_onset + (n_volumes_discard_trial_onset*t_r))) &
+              (f[run]['onset'] <= (trial_end+t_r + (n_volumes_add_trial_end*t_r))))[0]
             f[run]['trial'][volume_idx] = trial
             f[run]['n_trial_volumes'][volume_idx] = volume_idx.size
             f[run]['rel_onset'][volume_idx] = f[run]['onset'][volume_idx] - trial_onset
