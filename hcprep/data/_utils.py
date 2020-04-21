@@ -23,7 +23,7 @@ def _generate_ev_df(path, ev_filenames, task, subject, run):
                     event_type = f.split('_')[-2].split('-')[1]
                 else:
                     event_type = f.split('.')[-2].split('-')[1]
-                ev_mat = pd.read_table(path+f, sep='\t', header=None).values
+                ev_mat = pd.read_csv(path+f, sep='\t', header=None).values
                 df_tmp = pd.DataFrame({'subject': subject,
                                        'task': task,
                                        'run': run,
@@ -37,9 +37,9 @@ def _generate_ev_df(path, ev_filenames, task, subject, run):
                       'MOTOR',
                       'RELATIONAL']:
             event_type = f.split('.')[0].split('_')[-1].split('-')[1]
-            if (task == 'MOTOR') & (event_type == 'cue'):
+            if event_type == 'cue':
                 continue
-            ev_mat = pd.read_table(path+f, sep='\t', header=None).values
+            ev_mat = pd.read_csv(path+f, sep='\t', header=None).values
             df_tmp = pd.DataFrame({'subject': subject,
                                    'task': task,
                                    'run': run,
@@ -51,11 +51,7 @@ def _generate_ev_df(path, ev_filenames, task, subject, run):
         elif task == 'SOCIAL':
             if '_resp' in f:
                 event_type = f.split('.')[0].split('_')[-2].split('-')[1]
-                try:
-                    ev_mat = pd.read_table(
-                        path+f, sep='\t', header=None).values
-                except pd.errors.EmptyDataError:
-                    continue
+                ev_mat = pd.read_csv(path+f, sep='\t', header=None).values
                 df_tmp = pd.DataFrame({'subject': subject,
                                        'task': task,
                                        'run': run,
@@ -69,7 +65,7 @@ def _generate_ev_df(path, ev_filenames, task, subject, run):
         elif task == 'WM':
             event_type = f.split('.')[0].split('-')[-1].split('_')[1]
             if event_type in ['body', 'faces', 'places', 'tools']:
-                ev_mat = pd.read_table(path+f, sep='\t', header=None).values
+                ev_mat = pd.read_csv(path+f, sep='\t', header=None).values
                 df_tmp = pd.DataFrame({'subject': subject,
                                        'task': task,
                                        'run': run,
@@ -112,9 +108,8 @@ def _init_datadict(subject,
         f_run['trial_type'] = np.zeros_like(f_run['trial']) * np.nan
         f_run['n_valid_volumes'] = 0
         f_run['n_trials'] = 0
-        f_run['onset'] = np.arange(0, f_run['n_volumes']*t_r, t_r)
+        f_run['onset'] = np.arange(f_run['n_volumes']) * t_r
         f_run['end'] = f_run['onset'] + t_r
-
         f[run] = f_run
     return f
 
